@@ -1,0 +1,602 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5022AC121BD0FC7200047B24 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022AC111BD0FC7200047B24 /* main.m */; };
+		5022AC151BD0FC7200047B24 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022AC141BD0FC7200047B24 /* AppDelegate.m */; };
+		5022AC181BD0FC7200047B24 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022AC171BD0FC7200047B24 /* ViewController.m */; };
+		5022AC1B1BD0FC7200047B24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5022AC191BD0FC7200047B24 /* Main.storyboard */; };
+		5022AC1D1BD0FC7200047B24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5022AC1C1BD0FC7200047B24 /* Assets.xcassets */; };
+		5022AC201BD0FC7200047B24 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5022AC1E1BD0FC7200047B24 /* LaunchScreen.storyboard */; };
+		5022AC2B1BD0FC7200047B24 /* MemoryGameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022AC2A1BD0FC7200047B24 /* MemoryGameTests.m */; };
+		5022AC361BD0FC7300047B24 /* MemoryGameUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022AC351BD0FC7300047B24 /* MemoryGameUITests.m */; };
+		5022AC471BD0FCEC00047B24 /* TLArithmeticQuestionGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022AC461BD0FCEC00047B24 /* TLArithmeticQuestionGenerator.m */; settings = {ASSET_TAGS = (); }; };
+		5022AC4B1BD0FD4000047B24 /* TLArithmeticQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022AC4A1BD0FD4000047B24 /* TLArithmeticQuestion.m */; settings = {ASSET_TAGS = (); }; };
+		5022AC4E1BD11A9400047B24 /* TLGridQuestionGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022AC4D1BD11A9400047B24 /* TLGridQuestionGenerator.m */; settings = {ASSET_TAGS = (); }; };
+		5022AC511BD1207700047B24 /* TLGameOutcomeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022AC501BD1207700047B24 /* TLGameOutcomeHandler.m */; settings = {ASSET_TAGS = (); }; };
+		5022AC541BD120DA00047B24 /* GameScoreGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022AC531BD120DA00047B24 /* GameScoreGenerator.m */; settings = {ASSET_TAGS = (); }; };
+		50290FDF1BE9CADA004BF002 /* TLQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 50290FDE1BE9CADA004BF002 /* TLQuestion.m */; settings = {ASSET_TAGS = (); }; };
+		50290FE21BE9CB74004BF002 /* TLGridQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 50290FE11BE9CB74004BF002 /* TLGridQuestion.m */; settings = {ASSET_TAGS = (); }; };
+		509EAD5A1BD12FB800611136 /* TLEventInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 509EAD591BD12FB800611136 /* TLEventInput.m */; settings = {ASSET_TAGS = (); }; };
+		509EAD5D1BD137D800611136 /* TLEventScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 509EAD5C1BD137D800611136 /* TLEventScore.m */; settings = {ASSET_TAGS = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5022AC271BD0FC7200047B24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5022AC051BD0FC7200047B24 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5022AC0C1BD0FC7200047B24;
+			remoteInfo = MemoryGame;
+		};
+		5022AC321BD0FC7300047B24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5022AC051BD0FC7200047B24 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5022AC0C1BD0FC7200047B24;
+			remoteInfo = MemoryGame;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5022AC0D1BD0FC7200047B24 /* MemoryGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5022AC111BD0FC7200047B24 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5022AC131BD0FC7200047B24 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		5022AC141BD0FC7200047B24 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		5022AC161BD0FC7200047B24 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		5022AC171BD0FC7200047B24 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		5022AC1A1BD0FC7200047B24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5022AC1C1BD0FC7200047B24 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5022AC1F1BD0FC7200047B24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5022AC211BD0FC7200047B24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5022AC261BD0FC7200047B24 /* MemoryGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemoryGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5022AC2A1BD0FC7200047B24 /* MemoryGameTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MemoryGameTests.m; sourceTree = "<group>"; };
+		5022AC2C1BD0FC7200047B24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5022AC311BD0FC7300047B24 /* MemoryGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemoryGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5022AC351BD0FC7300047B24 /* MemoryGameUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MemoryGameUITests.m; sourceTree = "<group>"; };
+		5022AC371BD0FC7300047B24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5022AC451BD0FCEC00047B24 /* TLArithmeticQuestionGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLArithmeticQuestionGenerator.h; sourceTree = "<group>"; };
+		5022AC461BD0FCEC00047B24 /* TLArithmeticQuestionGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLArithmeticQuestionGenerator.m; sourceTree = "<group>"; };
+		5022AC491BD0FD4000047B24 /* TLArithmeticQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLArithmeticQuestion.h; sourceTree = "<group>"; };
+		5022AC4A1BD0FD4000047B24 /* TLArithmeticQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLArithmeticQuestion.m; sourceTree = "<group>"; };
+		5022AC4C1BD11A9400047B24 /* TLGridQuestionGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLGridQuestionGenerator.h; sourceTree = "<group>"; };
+		5022AC4D1BD11A9400047B24 /* TLGridQuestionGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLGridQuestionGenerator.m; sourceTree = "<group>"; };
+		5022AC4F1BD1207700047B24 /* TLGameOutcomeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLGameOutcomeHandler.h; sourceTree = "<group>"; };
+		5022AC501BD1207700047B24 /* TLGameOutcomeHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLGameOutcomeHandler.m; sourceTree = "<group>"; };
+		5022AC521BD120DA00047B24 /* GameScoreGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScoreGenerator.h; sourceTree = "<group>"; };
+		5022AC531BD120DA00047B24 /* GameScoreGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScoreGenerator.m; sourceTree = "<group>"; };
+		50290FD81BE8BDF1004BF002 /* Enums.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Enums.h; sourceTree = "<group>"; };
+		50290FDD1BE9CADA004BF002 /* TLQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLQuestion.h; sourceTree = "<group>"; };
+		50290FDE1BE9CADA004BF002 /* TLQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLQuestion.m; sourceTree = "<group>"; };
+		50290FE01BE9CB74004BF002 /* TLGridQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLGridQuestion.h; sourceTree = "<group>"; };
+		50290FE11BE9CB74004BF002 /* TLGridQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLGridQuestion.m; sourceTree = "<group>"; };
+		509EAD581BD12FB800611136 /* TLEventInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLEventInput.h; sourceTree = "<group>"; };
+		509EAD591BD12FB800611136 /* TLEventInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLEventInput.m; sourceTree = "<group>"; };
+		509EAD5B1BD137D800611136 /* TLEventScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLEventScore.h; sourceTree = "<group>"; };
+		509EAD5C1BD137D800611136 /* TLEventScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLEventScore.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5022AC0A1BD0FC7200047B24 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5022AC231BD0FC7200047B24 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5022AC2E1BD0FC7300047B24 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5022AC041BD0FC7200047B24 = {
+			isa = PBXGroup;
+			children = (
+				5022AC0F1BD0FC7200047B24 /* MemoryGame */,
+				5022AC291BD0FC7200047B24 /* MemoryGameTests */,
+				5022AC341BD0FC7300047B24 /* MemoryGameUITests */,
+				5022AC0E1BD0FC7200047B24 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5022AC0E1BD0FC7200047B24 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5022AC0D1BD0FC7200047B24 /* MemoryGame.app */,
+				5022AC261BD0FC7200047B24 /* MemoryGameTests.xctest */,
+				5022AC311BD0FC7300047B24 /* MemoryGameUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5022AC0F1BD0FC7200047B24 /* MemoryGame */ = {
+			isa = PBXGroup;
+			children = (
+				5022AC431BD0FCAD00047B24 /* core */,
+				5022AC131BD0FC7200047B24 /* AppDelegate.h */,
+				5022AC141BD0FC7200047B24 /* AppDelegate.m */,
+				5022AC161BD0FC7200047B24 /* ViewController.h */,
+				5022AC171BD0FC7200047B24 /* ViewController.m */,
+				5022AC191BD0FC7200047B24 /* Main.storyboard */,
+				5022AC1C1BD0FC7200047B24 /* Assets.xcassets */,
+				5022AC1E1BD0FC7200047B24 /* LaunchScreen.storyboard */,
+				5022AC211BD0FC7200047B24 /* Info.plist */,
+				5022AC101BD0FC7200047B24 /* Supporting Files */,
+			);
+			path = MemoryGame;
+			sourceTree = "<group>";
+		};
+		5022AC101BD0FC7200047B24 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5022AC111BD0FC7200047B24 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5022AC291BD0FC7200047B24 /* MemoryGameTests */ = {
+			isa = PBXGroup;
+			children = (
+				5022AC2A1BD0FC7200047B24 /* MemoryGameTests.m */,
+				5022AC2C1BD0FC7200047B24 /* Info.plist */,
+			);
+			path = MemoryGameTests;
+			sourceTree = "<group>";
+		};
+		5022AC341BD0FC7300047B24 /* MemoryGameUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5022AC351BD0FC7300047B24 /* MemoryGameUITests.m */,
+				5022AC371BD0FC7300047B24 /* Info.plist */,
+			);
+			path = MemoryGameUITests;
+			sourceTree = "<group>";
+		};
+		5022AC431BD0FCAD00047B24 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				5022AC481BD0FD2400047B24 /* models */,
+				5022AC441BD0FCCA00047B24 /* questions */,
+				5022AC4F1BD1207700047B24 /* TLGameOutcomeHandler.h */,
+				5022AC501BD1207700047B24 /* TLGameOutcomeHandler.m */,
+				5022AC521BD120DA00047B24 /* GameScoreGenerator.h */,
+				5022AC531BD120DA00047B24 /* GameScoreGenerator.m */,
+				50290FD81BE8BDF1004BF002 /* Enums.h */,
+			);
+			name = core;
+			sourceTree = "<group>";
+		};
+		5022AC441BD0FCCA00047B24 /* questions */ = {
+			isa = PBXGroup;
+			children = (
+				5022AC451BD0FCEC00047B24 /* TLArithmeticQuestionGenerator.h */,
+				5022AC461BD0FCEC00047B24 /* TLArithmeticQuestionGenerator.m */,
+				5022AC4C1BD11A9400047B24 /* TLGridQuestionGenerator.h */,
+				5022AC4D1BD11A9400047B24 /* TLGridQuestionGenerator.m */,
+			);
+			name = questions;
+			sourceTree = "<group>";
+		};
+		5022AC481BD0FD2400047B24 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				5022AC491BD0FD4000047B24 /* TLArithmeticQuestion.h */,
+				5022AC4A1BD0FD4000047B24 /* TLArithmeticQuestion.m */,
+				509EAD581BD12FB800611136 /* TLEventInput.h */,
+				509EAD591BD12FB800611136 /* TLEventInput.m */,
+				509EAD5B1BD137D800611136 /* TLEventScore.h */,
+				509EAD5C1BD137D800611136 /* TLEventScore.m */,
+				50290FDD1BE9CADA004BF002 /* TLQuestion.h */,
+				50290FDE1BE9CADA004BF002 /* TLQuestion.m */,
+				50290FE01BE9CB74004BF002 /* TLGridQuestion.h */,
+				50290FE11BE9CB74004BF002 /* TLGridQuestion.m */,
+			);
+			name = models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5022AC0C1BD0FC7200047B24 /* MemoryGame */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5022AC3A1BD0FC7300047B24 /* Build configuration list for PBXNativeTarget "MemoryGame" */;
+			buildPhases = (
+				5022AC091BD0FC7200047B24 /* Sources */,
+				5022AC0A1BD0FC7200047B24 /* Frameworks */,
+				5022AC0B1BD0FC7200047B24 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MemoryGame;
+			productName = MemoryGame;
+			productReference = 5022AC0D1BD0FC7200047B24 /* MemoryGame.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5022AC251BD0FC7200047B24 /* MemoryGameTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5022AC3D1BD0FC7300047B24 /* Build configuration list for PBXNativeTarget "MemoryGameTests" */;
+			buildPhases = (
+				5022AC221BD0FC7200047B24 /* Sources */,
+				5022AC231BD0FC7200047B24 /* Frameworks */,
+				5022AC241BD0FC7200047B24 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5022AC281BD0FC7200047B24 /* PBXTargetDependency */,
+			);
+			name = MemoryGameTests;
+			productName = MemoryGameTests;
+			productReference = 5022AC261BD0FC7200047B24 /* MemoryGameTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5022AC301BD0FC7300047B24 /* MemoryGameUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5022AC401BD0FC7300047B24 /* Build configuration list for PBXNativeTarget "MemoryGameUITests" */;
+			buildPhases = (
+				5022AC2D1BD0FC7300047B24 /* Sources */,
+				5022AC2E1BD0FC7300047B24 /* Frameworks */,
+				5022AC2F1BD0FC7300047B24 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5022AC331BD0FC7300047B24 /* PBXTargetDependency */,
+			);
+			name = MemoryGameUITests;
+			productName = MemoryGameUITests;
+			productReference = 5022AC311BD0FC7300047B24 /* MemoryGameUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5022AC051BD0FC7200047B24 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Tilicho Labs";
+				TargetAttributes = {
+					5022AC0C1BD0FC7200047B24 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					5022AC251BD0FC7200047B24 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = 5022AC0C1BD0FC7200047B24;
+					};
+					5022AC301BD0FC7300047B24 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = 5022AC0C1BD0FC7200047B24;
+					};
+				};
+			};
+			buildConfigurationList = 5022AC081BD0FC7200047B24 /* Build configuration list for PBXProject "MemoryGame" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5022AC041BD0FC7200047B24;
+			productRefGroup = 5022AC0E1BD0FC7200047B24 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5022AC0C1BD0FC7200047B24 /* MemoryGame */,
+				5022AC251BD0FC7200047B24 /* MemoryGameTests */,
+				5022AC301BD0FC7300047B24 /* MemoryGameUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5022AC0B1BD0FC7200047B24 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5022AC201BD0FC7200047B24 /* LaunchScreen.storyboard in Resources */,
+				5022AC1D1BD0FC7200047B24 /* Assets.xcassets in Resources */,
+				5022AC1B1BD0FC7200047B24 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5022AC241BD0FC7200047B24 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5022AC2F1BD0FC7300047B24 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5022AC091BD0FC7200047B24 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5022AC181BD0FC7200047B24 /* ViewController.m in Sources */,
+				5022AC4B1BD0FD4000047B24 /* TLArithmeticQuestion.m in Sources */,
+				50290FDF1BE9CADA004BF002 /* TLQuestion.m in Sources */,
+				5022AC471BD0FCEC00047B24 /* TLArithmeticQuestionGenerator.m in Sources */,
+				5022AC511BD1207700047B24 /* TLGameOutcomeHandler.m in Sources */,
+				50290FE21BE9CB74004BF002 /* TLGridQuestion.m in Sources */,
+				5022AC541BD120DA00047B24 /* GameScoreGenerator.m in Sources */,
+				5022AC4E1BD11A9400047B24 /* TLGridQuestionGenerator.m in Sources */,
+				509EAD5A1BD12FB800611136 /* TLEventInput.m in Sources */,
+				5022AC151BD0FC7200047B24 /* AppDelegate.m in Sources */,
+				5022AC121BD0FC7200047B24 /* main.m in Sources */,
+				509EAD5D1BD137D800611136 /* TLEventScore.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5022AC221BD0FC7200047B24 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5022AC2B1BD0FC7200047B24 /* MemoryGameTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5022AC2D1BD0FC7300047B24 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5022AC361BD0FC7300047B24 /* MemoryGameUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5022AC281BD0FC7200047B24 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5022AC0C1BD0FC7200047B24 /* MemoryGame */;
+			targetProxy = 5022AC271BD0FC7200047B24 /* PBXContainerItemProxy */;
+		};
+		5022AC331BD0FC7300047B24 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5022AC0C1BD0FC7200047B24 /* MemoryGame */;
+			targetProxy = 5022AC321BD0FC7300047B24 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5022AC191BD0FC7200047B24 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5022AC1A1BD0FC7200047B24 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5022AC1E1BD0FC7200047B24 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5022AC1F1BD0FC7200047B24 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5022AC381BD0FC7300047B24 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		5022AC391BD0FC7300047B24 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5022AC3B1BD0FC7300047B24 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = MemoryGame/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tilicho.MemoryGame;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5022AC3C1BD0FC7300047B24 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = MemoryGame/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tilicho.MemoryGame;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		5022AC3E1BD0FC7300047B24 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = MemoryGameTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tilicho.MemoryGameTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MemoryGame.app/MemoryGame";
+			};
+			name = Debug;
+		};
+		5022AC3F1BD0FC7300047B24 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = MemoryGameTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tilicho.MemoryGameTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MemoryGame.app/MemoryGame";
+			};
+			name = Release;
+		};
+		5022AC411BD0FC7300047B24 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = MemoryGameUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tilicho.MemoryGameUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = MemoryGame;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		5022AC421BD0FC7300047B24 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = MemoryGameUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tilicho.MemoryGameUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = MemoryGame;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5022AC081BD0FC7200047B24 /* Build configuration list for PBXProject "MemoryGame" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5022AC381BD0FC7300047B24 /* Debug */,
+				5022AC391BD0FC7300047B24 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5022AC3A1BD0FC7300047B24 /* Build configuration list for PBXNativeTarget "MemoryGame" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5022AC3B1BD0FC7300047B24 /* Debug */,
+				5022AC3C1BD0FC7300047B24 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5022AC3D1BD0FC7300047B24 /* Build configuration list for PBXNativeTarget "MemoryGameTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5022AC3E1BD0FC7300047B24 /* Debug */,
+				5022AC3F1BD0FC7300047B24 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5022AC401BD0FC7300047B24 /* Build configuration list for PBXNativeTarget "MemoryGameUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5022AC411BD0FC7300047B24 /* Debug */,
+				5022AC421BD0FC7300047B24 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5022AC051BD0FC7200047B24 /* Project object */;
+}
