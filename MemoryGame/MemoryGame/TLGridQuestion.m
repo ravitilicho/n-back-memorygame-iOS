@@ -11,7 +11,7 @@
 @implementation TLGridQuestion
 
 - (instancetype) initWithGridSize:(Point)gridSize gridNumToHighlight:(NSInteger)gridNumToHighlight {
-    self = [TLGridQuestion new];
+    self = [super init];
     
     if (self) {
         self.gridSize = gridSize;

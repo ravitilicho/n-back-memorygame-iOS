@@ -16,6 +16,10 @@
 @property(nonatomic) TLArithmeticQuestion *arithmeticQuestion;
 @property(nonatomic) TLGridQuestion *gridQuestion;
 
+- (instancetype)initWithQuestionId:(NSInteger)questionId
+                arithmeticQuestion:(TLArithmeticQuestion *)arithmeticQuestion
+                      gridQuestion:(TLGridQuestion *)gridQuestion;
+
 - (NSInteger) arithmeticAnswer;
 - (NSArray *) arithmeticAnswerOptions;
 - (NSInteger) gridAnswer;

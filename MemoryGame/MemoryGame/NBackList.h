@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "TLQuestion.h"
 
-@interface NBackAnswersList : NSObject
+@interface NBackList : NSObject
 
 // Adds at the top of list
 - (void)addQuestion:(TLQuestion *)question;

@@ -11,7 +11,7 @@
 @implementation TLEventScore
 
 - (instancetype) initWithOutcome:(TLEventOutcome)outcome score:(NSInteger)score {
-    self = [TLEventScore new];
+    self = [super init];
     
     if (self) {
         self.outcome = outcome;

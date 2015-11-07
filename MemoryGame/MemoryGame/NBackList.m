@@ -6,9 +6,9 @@
 //  Copyright © 2015 Tilicho Labs. All rights reserved.
 //
 
-#import "NBackAnswersList.h"
+#import "NBackList.h"
 
-@interface NBackAnswersList ()
+@interface NBackList ()
 
 @property(nonatomic) NSMutableArray *questions;
 
@@ -16,7 +16,7 @@
 
 @end
 
-@implementation NBackAnswersList
+@implementation NBackList
 
 - (void)addQuestion:(TLQuestion *)question {
     

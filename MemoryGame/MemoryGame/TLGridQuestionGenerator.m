@@ -18,7 +18,11 @@
 
 static NSInteger prevGridHighlighted = -1;
 
-+ (TLGridQuestion *)generate:(Point)gridSize {
++ (TLGridQuestion *)generate {
+    
+    // TODO: Replace with value from GameOptions
+    Point gridSize = {3, 3};
+    
     NSInteger gridCellCount = gridSize.h * gridSize.h;
     NSInteger gridNumToHighlight = [self gridNumberToHighlight:gridCellCount];
     

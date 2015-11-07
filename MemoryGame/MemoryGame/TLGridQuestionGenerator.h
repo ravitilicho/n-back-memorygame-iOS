@@ -11,6 +11,6 @@
 
 @interface TLGridQuestionGenerator : NSObject
 
-+ (TLGridQuestion *)generate:(Point)gridSize;
++ (TLGridQuestion *)generate;
 
 @end

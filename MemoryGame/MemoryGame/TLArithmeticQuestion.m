@@ -17,7 +17,7 @@
 
 - (instancetype)initWithOperands:(NSInteger)operand1 operand2: (NSInteger)operand2 {
     
-    self = [TLArithmeticQuestion new];
+    self = [super init];
     
     if (self) {
         self.operand1 = operand1;

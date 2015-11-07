@@ -8,19 +8,20 @@
 
 #import "TLQuestion.h"
 
-@interface TLQuestion ()
-
-- (NSInteger) generateNextQuestionId;
-
-@end
-
 @implementation TLQuestion
 
-- (NSInteger) generateNextQuestionId {
-    static NSInteger questionId = 1;
+- (instancetype)initWithQuestionId:(NSInteger)questionId
+                arithmeticQuestion:(TLArithmeticQuestion *)arithmeticQuestion
+                      gridQuestion:(TLGridQuestion *)gridQuestion {
+    self = [super init];
     
-    questionId += 1;
-    return questionId;
+    if (self) {
+        _questionId = questionId;
+        _arithmeticQuestion = arithmeticQuestion;
+        _gridQuestion = gridQuestion;
+    }
+    
+    return self;
 }
 
 - (NSInteger) arithmeticAnswer {

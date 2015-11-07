@@ -10,19 +10,25 @@
 #import "TLEventInput.h"
 #import "TLEventScore.h"
 #import "TLGameScoreGenerator.h"
-#import "NBackAnswersList.h"
+#import "NBackList.h"
 #import "Enums.h"
 
 @interface TLGameOutcomeHandler ()
 
 @property(nonatomic) TLGameScoreGenerator *scoreGenerator;
-@property(nonatomic) NBackAnswersList *answersList;
+@property(nonatomic) NBackList *questionsList;
 
 - (TLEventOutcome) outcome:(TLEventInput *)input;
 
 @end
 
 @implementation TLGameOutcomeHandler
+
+- (void)registerQuestion:(TLQuestion *)question {
+    if (question) {
+        [_questionsList addQuestion:question];
+    }
+}
 
 - (TLEventScore *) getRoundScore:(TLEventInput *)eventInput {
     
@@ -39,13 +45,13 @@
     
     TLEventType eventType = [input type];
 
-    if ([_answersList isNBackFull]) {
+    if ([_questionsList isNBackFull]) {
         
         NSInteger answer;
         // Find out if the n-back answer is correct
         if (eventType == ARITHMETIC) {
             
-            answer = [_answersList nBackArithmeticAnswer];
+            answer = [_questionsList nBackArithmeticAnswer];
             
             if (answer == [input input]) {
                 return ARITHMETIC_CORRECT;
@@ -55,7 +61,7 @@
             
         } else if (eventType == COLOR_GRID) {
             
-            answer = [_answersList nBackGridAnswer];
+            answer = [_questionsList nBackGridAnswer];
             
             if (answer == [input input]) {
                 return COLOR_GRID_CORRECT;

@@ -24,7 +24,8 @@
 		50290FE21BE9CB74004BF002 /* TLGridQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 50290FE11BE9CB74004BF002 /* TLGridQuestion.m */; settings = {ASSET_TAGS = (); }; };
 		509EAD5A1BD12FB800611136 /* TLEventInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 509EAD591BD12FB800611136 /* TLEventInput.m */; settings = {ASSET_TAGS = (); }; };
 		509EAD5D1BD137D800611136 /* TLEventScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 509EAD5C1BD137D800611136 /* TLEventScore.m */; settings = {ASSET_TAGS = (); }; };
-		50E95B521BEDC5FB0047C9EF /* NBackAnswersList.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E95B511BEDC5FB0047C9EF /* NBackAnswersList.m */; settings = {ASSET_TAGS = (); }; };
+		50E95B521BEDC5FB0047C9EF /* NBackList.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E95B511BEDC5FB0047C9EF /* NBackList.m */; settings = {ASSET_TAGS = (); }; };
+		50E95B551BEDE7AD0047C9EF /* QuestionsEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E95B541BEDE7AD0047C9EF /* QuestionsEngine.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,8 +81,10 @@
 		509EAD591BD12FB800611136 /* TLEventInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLEventInput.m; sourceTree = "<group>"; };
 		509EAD5B1BD137D800611136 /* TLEventScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLEventScore.h; sourceTree = "<group>"; };
 		509EAD5C1BD137D800611136 /* TLEventScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLEventScore.m; sourceTree = "<group>"; };
-		50E95B501BEDC5FB0047C9EF /* NBackAnswersList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBackAnswersList.h; sourceTree = "<group>"; };
-		50E95B511BEDC5FB0047C9EF /* NBackAnswersList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBackAnswersList.m; sourceTree = "<group>"; };
+		50E95B501BEDC5FB0047C9EF /* NBackList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBackList.h; sourceTree = "<group>"; };
+		50E95B511BEDC5FB0047C9EF /* NBackList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBackList.m; sourceTree = "<group>"; };
+		50E95B531BEDE7AD0047C9EF /* QuestionsEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionsEngine.h; sourceTree = "<group>"; };
+		50E95B541BEDE7AD0047C9EF /* QuestionsEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionsEngine.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,8 +185,8 @@
 				5022AC521BD120DA00047B24 /* TLGameScoreGenerator.h */,
 				5022AC531BD120DA00047B24 /* TLGameScoreGenerator.m */,
 				50290FD81BE8BDF1004BF002 /* Enums.h */,
-				50E95B501BEDC5FB0047C9EF /* NBackAnswersList.h */,
-				50E95B511BEDC5FB0047C9EF /* NBackAnswersList.m */,
+				50E95B501BEDC5FB0047C9EF /* NBackList.h */,
+				50E95B511BEDC5FB0047C9EF /* NBackList.m */,
 			);
 			name = core;
 			sourceTree = "<group>";
@@ -191,6 +194,8 @@
 		5022AC441BD0FCCA00047B24 /* questions */ = {
 			isa = PBXGroup;
 			children = (
+				50E95B531BEDE7AD0047C9EF /* QuestionsEngine.h */,
+				50E95B541BEDE7AD0047C9EF /* QuestionsEngine.m */,
 				5022AC451BD0FCEC00047B24 /* TLArithmeticQuestionGenerator.h */,
 				5022AC461BD0FCEC00047B24 /* TLArithmeticQuestionGenerator.m */,
 				5022AC4C1BD11A9400047B24 /* TLGridQuestionGenerator.h */,
@@ -346,7 +351,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50E95B521BEDC5FB0047C9EF /* NBackAnswersList.m in Sources */,
+				50E95B521BEDC5FB0047C9EF /* NBackList.m in Sources */,
 				5022AC181BD0FC7200047B24 /* ViewController.m in Sources */,
 				5022AC4B1BD0FD4000047B24 /* TLArithmeticQuestion.m in Sources */,
 				50290FDF1BE9CADA004BF002 /* TLQuestion.m in Sources */,
@@ -357,6 +362,7 @@
 				5022AC4E1BD11A9400047B24 /* TLGridQuestionGenerator.m in Sources */,
 				509EAD5A1BD12FB800611136 /* TLEventInput.m in Sources */,
 				5022AC151BD0FC7200047B24 /* AppDelegate.m in Sources */,
+				50E95B551BEDE7AD0047C9EF /* QuestionsEngine.m in Sources */,
 				5022AC121BD0FC7200047B24 /* main.m in Sources */,
 				509EAD5D1BD137D800611136 /* TLEventScore.m in Sources */,
 			);
