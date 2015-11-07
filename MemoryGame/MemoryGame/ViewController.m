@@ -24,9 +24,11 @@
         NSLog(@"Arithmetic Question: %@ Answer: %@", question.questionString, question.answerString);
     }
     
+    Point p = {4, 4};
+    
     for (int i = 0; i < 20; i++) {
-        NSInteger gridToHighlight = [TLGridQuestionGenerator generate:16];
-        NSLog(@"Color Question: %ld \n", (long)gridToHighlight);
+        TLGridQuestion *gridToHighlight = [TLGridQuestionGenerator generate:p];
+        NSLog(@"Color Question: %ld \n", [gridToHighlight answer]);
     }
     
 }

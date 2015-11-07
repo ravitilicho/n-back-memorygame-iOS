@@ -19,11 +19,12 @@
 		5022AC4B1BD0FD4000047B24 /* TLArithmeticQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022AC4A1BD0FD4000047B24 /* TLArithmeticQuestion.m */; settings = {ASSET_TAGS = (); }; };
 		5022AC4E1BD11A9400047B24 /* TLGridQuestionGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022AC4D1BD11A9400047B24 /* TLGridQuestionGenerator.m */; settings = {ASSET_TAGS = (); }; };
 		5022AC511BD1207700047B24 /* TLGameOutcomeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022AC501BD1207700047B24 /* TLGameOutcomeHandler.m */; settings = {ASSET_TAGS = (); }; };
-		5022AC541BD120DA00047B24 /* GameScoreGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022AC531BD120DA00047B24 /* GameScoreGenerator.m */; settings = {ASSET_TAGS = (); }; };
+		5022AC541BD120DA00047B24 /* TLGameScoreGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022AC531BD120DA00047B24 /* TLGameScoreGenerator.m */; settings = {ASSET_TAGS = (); }; };
 		50290FDF1BE9CADA004BF002 /* TLQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 50290FDE1BE9CADA004BF002 /* TLQuestion.m */; settings = {ASSET_TAGS = (); }; };
 		50290FE21BE9CB74004BF002 /* TLGridQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 50290FE11BE9CB74004BF002 /* TLGridQuestion.m */; settings = {ASSET_TAGS = (); }; };
 		509EAD5A1BD12FB800611136 /* TLEventInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 509EAD591BD12FB800611136 /* TLEventInput.m */; settings = {ASSET_TAGS = (); }; };
 		509EAD5D1BD137D800611136 /* TLEventScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 509EAD5C1BD137D800611136 /* TLEventScore.m */; settings = {ASSET_TAGS = (); }; };
+		50E95B521BEDC5FB0047C9EF /* NBackAnswersList.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E95B511BEDC5FB0047C9EF /* NBackAnswersList.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,8 +69,8 @@
 		5022AC4D1BD11A9400047B24 /* TLGridQuestionGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLGridQuestionGenerator.m; sourceTree = "<group>"; };
 		5022AC4F1BD1207700047B24 /* TLGameOutcomeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLGameOutcomeHandler.h; sourceTree = "<group>"; };
 		5022AC501BD1207700047B24 /* TLGameOutcomeHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLGameOutcomeHandler.m; sourceTree = "<group>"; };
-		5022AC521BD120DA00047B24 /* GameScoreGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScoreGenerator.h; sourceTree = "<group>"; };
-		5022AC531BD120DA00047B24 /* GameScoreGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScoreGenerator.m; sourceTree = "<group>"; };
+		5022AC521BD120DA00047B24 /* TLGameScoreGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLGameScoreGenerator.h; sourceTree = "<group>"; };
+		5022AC531BD120DA00047B24 /* TLGameScoreGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLGameScoreGenerator.m; sourceTree = "<group>"; };
 		50290FD81BE8BDF1004BF002 /* Enums.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Enums.h; sourceTree = "<group>"; };
 		50290FDD1BE9CADA004BF002 /* TLQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLQuestion.h; sourceTree = "<group>"; };
 		50290FDE1BE9CADA004BF002 /* TLQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLQuestion.m; sourceTree = "<group>"; };
@@ -79,6 +80,8 @@
 		509EAD591BD12FB800611136 /* TLEventInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLEventInput.m; sourceTree = "<group>"; };
 		509EAD5B1BD137D800611136 /* TLEventScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLEventScore.h; sourceTree = "<group>"; };
 		509EAD5C1BD137D800611136 /* TLEventScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLEventScore.m; sourceTree = "<group>"; };
+		50E95B501BEDC5FB0047C9EF /* NBackAnswersList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBackAnswersList.h; sourceTree = "<group>"; };
+		50E95B511BEDC5FB0047C9EF /* NBackAnswersList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBackAnswersList.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,9 +179,11 @@
 				5022AC441BD0FCCA00047B24 /* questions */,
 				5022AC4F1BD1207700047B24 /* TLGameOutcomeHandler.h */,
 				5022AC501BD1207700047B24 /* TLGameOutcomeHandler.m */,
-				5022AC521BD120DA00047B24 /* GameScoreGenerator.h */,
-				5022AC531BD120DA00047B24 /* GameScoreGenerator.m */,
+				5022AC521BD120DA00047B24 /* TLGameScoreGenerator.h */,
+				5022AC531BD120DA00047B24 /* TLGameScoreGenerator.m */,
 				50290FD81BE8BDF1004BF002 /* Enums.h */,
+				50E95B501BEDC5FB0047C9EF /* NBackAnswersList.h */,
+				50E95B511BEDC5FB0047C9EF /* NBackAnswersList.m */,
 			);
 			name = core;
 			sourceTree = "<group>";
@@ -341,13 +346,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50E95B521BEDC5FB0047C9EF /* NBackAnswersList.m in Sources */,
 				5022AC181BD0FC7200047B24 /* ViewController.m in Sources */,
 				5022AC4B1BD0FD4000047B24 /* TLArithmeticQuestion.m in Sources */,
 				50290FDF1BE9CADA004BF002 /* TLQuestion.m in Sources */,
 				5022AC471BD0FCEC00047B24 /* TLArithmeticQuestionGenerator.m in Sources */,
 				5022AC511BD1207700047B24 /* TLGameOutcomeHandler.m in Sources */,
 				50290FE21BE9CB74004BF002 /* TLGridQuestion.m in Sources */,
-				5022AC541BD120DA00047B24 /* GameScoreGenerator.m in Sources */,
+				5022AC541BD120DA00047B24 /* TLGameScoreGenerator.m in Sources */,
 				5022AC4E1BD11A9400047B24 /* TLGridQuestionGenerator.m in Sources */,
 				509EAD5A1BD12FB800611136 /* TLEventInput.m in Sources */,
 				5022AC151BD0FC7200047B24 /* AppDelegate.m in Sources */,

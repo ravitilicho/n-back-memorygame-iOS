@@ -16,13 +16,12 @@ typedef enum
     TIMER_EXPIRED
 } TLEventType;
 
-typedef enum
-{
-    ARITHMETIC_CORRECT,
-    ARITHMETIC_INCORRECT,
-    COLOR_GRID_CORRECT,
-    COLOR_GRID_INCORRECT
-} TLEventOutcome;
-
+typedef NS_ENUM(NSUInteger, TLEventOutcome) {
+    ARITHMETIC_CORRECT = 0,
+    ARITHMETIC_INCORRECT = 1,
+    COLOR_GRID_CORRECT = 2,
+    COLOR_GRID_INCORRECT = 3,
+    UNDEFINED = 10
+};
 
 #endif /* Enums_h */

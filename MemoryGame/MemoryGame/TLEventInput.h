@@ -7,15 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TLQuestion.h"
 #import "Enums.h"
 
 @interface TLEventInput : NSObject
 
 @property(nonatomic) TLEventType type;
 @property(nonatomic) NSInteger input;
-@property(nonatomic) NSInteger questionId;
+@property(nonatomic) TLQuestion* question;
 
-+ (TLEventInput *)forArithmeticInputEvent:(NSInteger) input questionId:(NSInteger) questionId;
-+ (TLEventInput *)forColorGridInputEvent:(NSInteger) input questionId:(NSInteger) questionId;
++ (TLEventInput *)forArithmeticInputEvent:(NSInteger) input question:(TLQuestion *) question;
++ (TLEventInput *)forColorGridInputEvent:(NSInteger) input question:(TLQuestion *) question;
 
+- (NSInteger)questionId;
 @end

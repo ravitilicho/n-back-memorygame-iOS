@@ -14,5 +14,6 @@
 @property(nonatomic) Point gridSize;
 
 - (instancetype) initWithGridSize:(Point)gridSize gridNumToHighlight:(NSInteger)gridNumToHighlight;
+- (NSInteger) answer;
 
 @end

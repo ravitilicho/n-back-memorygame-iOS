@@ -10,19 +10,23 @@
 
 @implementation TLEventInput
 
-+ (TLEventInput *)forArithmeticInputEvent:(NSInteger) input questionId:(NSInteger) questionId {
++ (TLEventInput *)forArithmeticInputEvent:(NSInteger) input question:(TLQuestion *) question {
     TLEventInput *result = [TLEventInput new];
     [result setInput:input];
     [result setType:ARITHMETIC];
-    [result setQuestionId:questionId];
+    [result setQuestion:question];
     return result;
 }
-+ (TLEventInput *)forColorGridInputEvent:(NSInteger) input questionId:(NSInteger) questionId {
++ (TLEventInput *)forColorGridInputEvent:(NSInteger) input question:(TLQuestion *) question {
     TLEventInput *result = [TLEventInput new];
     [result setInput:input];
     [result setType:COLOR_GRID];
-    [result setQuestionId:questionId];
+    [result setQuestion:question];
     return result;
+}
+
+- (NSInteger)questionId {
+    return [[self question] questionId];
 }
 
 @end

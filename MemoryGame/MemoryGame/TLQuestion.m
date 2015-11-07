@@ -23,4 +23,17 @@
     return questionId;
 }
 
+- (NSInteger) arithmeticAnswer {
+    return [[self arithmeticQuestion] answer];
+}
+
+- (NSInteger) gridAnswer {
+    return [[self gridQuestion] answer];
+}
+
+- (NSArray *) arithmeticAnswerOptions {
+    NSArray *options = @[@0, @1, @2, @3, @4, @5, @6, @7, @8, @9];
+    return options;
+}
+
 @end

@@ -12,6 +12,6 @@
 
 @interface TLGameOutcomeHandler : NSObject
 
-- (TLEventScore *) getRoundScore:(TLEventInput *)roundInput;
+- (TLEventScore *) getRoundScore:(TLEventInput *)eventInput;
 
 @end

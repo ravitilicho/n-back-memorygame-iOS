@@ -16,4 +16,8 @@
 @property(nonatomic) TLArithmeticQuestion *arithmeticQuestion;
 @property(nonatomic) TLGridQuestion *gridQuestion;
 
+- (NSInteger) arithmeticAnswer;
+- (NSArray *) arithmeticAnswerOptions;
+- (NSInteger) gridAnswer;
+
 @end

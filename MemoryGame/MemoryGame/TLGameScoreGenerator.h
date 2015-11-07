@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TLEventScore.h"
+#import "Enums.h"
 
-@interface GameScoreGenerator : NSObject
+@interface TLGameScoreGenerator : NSObject
 
-+ (NSInteger) getScore:(NSString *)roundOutcome;
+- (TLEventScore *) generateScore:(TLEventOutcome)eventOutcome;
 
 @end

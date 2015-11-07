@@ -21,4 +21,8 @@
     return self;
 }
 
+- (NSInteger) answer {
+    return [self gridNumToHighlight];
+}
+
 @end
