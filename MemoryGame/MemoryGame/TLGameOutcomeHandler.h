@@ -14,5 +14,8 @@
 
 - (void)registerQuestion:(TLQuestion *)question;
 - (TLEventScore *) getRoundScore:(TLEventInput *)eventInput;
+- (BOOL)canStartNBackRound;
 
+// Invoked when some game options change
+- (void)reset;
 @end

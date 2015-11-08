@@ -18,6 +18,8 @@
 
 @implementation QuestionsEngine
 
+static NSInteger questionId = 1;
+
 - (TLQuestion *)getNextQuestion {
     
     NSInteger questionId = [self generateNextQuestionId];
@@ -42,8 +44,12 @@
     return _outcomeHandler;
 }
 
+- (void)reset {
+    questionId = 1;
+    [_outcomeHandler reset];
+}
+
 - (NSInteger) generateNextQuestionId {
-    static NSInteger questionId = 1;
     
     questionId += 1;
     return questionId;

@@ -1,25 +1,188 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="DuN-wR-br9">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <scene sceneID="GEP-KM-dvw">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="DuN-wR-br9" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="VZ4-Fc-ky5"/>
+                        <viewControllerLayoutGuide type="bottom" id="Snk-il-qN2"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="tNc-9T-BWf">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="OJh-JB-tQ1" userLabel="GridQuestionCollectionView">
+                                <rect key="frame" x="10" y="96" width="310" height="310"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="310" id="7RR-nm-dZX"/>
+                                    <constraint firstAttribute="height" constant="310" id="I6c-Wm-iGE"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="310" id="Mxc-NF-xio"/>
+                                    <constraint firstAttribute="width" constant="310" id="Wt0-KG-48X"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="310" id="nHg-NH-iaD"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="345" id="xWf-Xo-ULI"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="MrQ-dt-Wd8">
+                                    <size key="itemSize" width="94" height="94"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GridQuestionCell" id="knE-TT-QqR">
+                                        <rect key="frame" x="0.0" y="0.0" width="94" height="94"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="94" height="94"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fz6-MG-6yy">
+                                                    <rect key="frame" x="26" y="37" width="42" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" red="0.40000000596046448" green="1" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" red="0.80000001192092896" green="0.40000000596046448" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="Fz6-MG-6yy" firstAttribute="centerY" secondItem="knE-TT-QqR" secondAttribute="centerY" id="9Wo-EP-hfP"/>
+                                            <constraint firstItem="Fz6-MG-6yy" firstAttribute="centerX" secondItem="knE-TT-QqR" secondAttribute="centerX" id="vjj-BP-s7V"/>
+                                        </constraints>
+                                        <size key="customSize" width="94" height="94"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Mxc-NF-xio"/>
+                                        <exclude reference="Wt0-KG-48X"/>
+                                        <exclude reference="nHg-NH-iaD"/>
+                                        <exclude reference="xWf-Xo-ULI"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outlet property="dataSource" destination="DuN-wR-br9" id="Q6M-Ot-Qhf"/>
+                                    <outlet property="delegate" destination="DuN-wR-br9" id="ivK-am-3tG"/>
+                                </connections>
+                            </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i22-Br-hr4">
+                                <rect key="frame" x="461.5" y="40" width="118.5" height="20.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="118.5" id="ZMV-kr-i1b"/>
+                                    <constraint firstAttribute="height" constant="20.5" id="i8o-Pn-sOV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KhZ-6P-nb6" userLabel="ArithmeticAnswersCollectionView">
+                                <rect key="frame" x="10" y="452" width="345" height="128"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="345" id="iZ1-EU-Hzm"/>
+                                    <constraint firstAttribute="height" constant="128" id="tD3-sY-rdf"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="RRi-en-oot">
+                                    <size key="itemSize" width="59" height="59"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ArithmeticAnswerCell" id="V8p-F4-kpD">
+                                        <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="56" height="56"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ueE-W9-gKS">
+                                                    <rect key="frame" x="8.5" y="19.5" width="42" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" red="1" green="0.80000001192092896" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="ueE-W9-gKS" firstAttribute="centerY" secondItem="V8p-F4-kpD" secondAttribute="centerY" id="85X-Cy-ndp"/>
+                                            <constraint firstItem="ueE-W9-gKS" firstAttribute="centerX" secondItem="V8p-F4-kpD" secondAttribute="centerX" id="WRQ-8V-RL0"/>
+                                        </constraints>
+                                        <size key="customSize" width="56" height="56"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="iZ1-EU-Hzm"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outlet property="dataSource" destination="DuN-wR-br9" id="MjQ-op-ujJ"/>
+                                    <outlet property="delegate" destination="DuN-wR-br9" id="7Kp-af-RIj"/>
+                                </connections>
+                            </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arithmetic Question Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dY6-7D-pFk">
+                                <rect key="frame" x="20" y="411.5" width="199" height="20.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="199" id="P2I-t2-s7Z"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OJh-JB-tQ1" firstAttribute="top" secondItem="VZ4-Fc-ky5" secondAttribute="bottom" constant="58" id="1cP-ge-ffH"/>
+                            <constraint firstItem="dY6-7D-pFk" firstAttribute="top" secondItem="OJh-JB-tQ1" secondAttribute="bottom" constant="5" id="3eq-FM-EXW"/>
+                            <constraint firstItem="i22-Br-hr4" firstAttribute="top" secondItem="VZ4-Fc-ky5" secondAttribute="bottom" constant="20" id="7um-vH-V9o"/>
+                            <constraint firstItem="KhZ-6P-nb6" firstAttribute="top" secondItem="dY6-7D-pFk" secondAttribute="bottom" constant="20" id="8jJ-sk-EOM"/>
+                            <constraint firstItem="dY6-7D-pFk" firstAttribute="leading" secondItem="OJh-JB-tQ1" secondAttribute="leading" id="ADB-VN-PnB"/>
+                            <constraint firstItem="dY6-7D-pFk" firstAttribute="leading" secondItem="tNc-9T-BWf" secondAttribute="leadingMargin" id="DYq-xh-zBP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="i22-Br-hr4" secondAttribute="trailing" id="HIA-N5-0Ba"/>
+                            <constraint firstItem="Snk-il-qN2" firstAttribute="top" secondItem="KhZ-6P-nb6" secondAttribute="bottom" constant="20" id="HXd-nE-Tii"/>
+                            <constraint firstItem="dY6-7D-pFk" firstAttribute="top" secondItem="OJh-JB-tQ1" secondAttribute="bottom" constant="5" id="O2p-0z-tci"/>
+                            <constraint firstItem="OJh-JB-tQ1" firstAttribute="leading" secondItem="tNc-9T-BWf" secondAttribute="leading" constant="10" id="QiF-Vz-zT7"/>
+                            <constraint firstItem="OJh-JB-tQ1" firstAttribute="centerY" secondItem="tNc-9T-BWf" secondAttribute="centerY" constant="-65" id="Uck-yf-5Km"/>
+                            <constraint firstItem="KhZ-6P-nb6" firstAttribute="width" secondItem="OJh-JB-tQ1" secondAttribute="width" id="Uyz-wf-r6F"/>
+                            <constraint firstItem="Snk-il-qN2" firstAttribute="top" secondItem="dY6-7D-pFk" secondAttribute="bottom" constant="168" id="eyg-UZ-fNp"/>
+                            <constraint firstItem="OJh-JB-tQ1" firstAttribute="top" secondItem="i22-Br-hr4" secondAttribute="bottom" constant="5" id="gRT-HH-Qi0"/>
+                            <constraint firstItem="OJh-JB-tQ1" firstAttribute="top" secondItem="i22-Br-hr4" secondAttribute="bottom" constant="35.5" id="h8y-z1-XC4"/>
+                            <constraint firstItem="KhZ-6P-nb6" firstAttribute="leading" secondItem="OJh-JB-tQ1" secondAttribute="leading" id="sgu-tq-AWp"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="1cP-ge-ffH"/>
+                                <exclude reference="Uck-yf-5Km"/>
+                                <exclude reference="gRT-HH-Qi0"/>
+                                <exclude reference="ADB-VN-PnB"/>
+                                <exclude reference="O2p-0z-tci"/>
+                                <exclude reference="eyg-UZ-fNp"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="arithmeticAnswersCollectionView" destination="KhZ-6P-nb6" id="TFx-Ob-7SW"/>
+                        <outlet property="arithmeticQuestionLabel" destination="dY6-7D-pFk" id="s0p-tC-4Lv"/>
+                        <outlet property="gridQuestionCollectionView" destination="OJh-JB-tQ1" id="Hd9-ob-v11"/>
+                        <outlet property="scoreLabel" destination="i22-Br-hr4" id="3pv-XQ-yfV"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EBZ-XW-jV2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="482" y="144"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>

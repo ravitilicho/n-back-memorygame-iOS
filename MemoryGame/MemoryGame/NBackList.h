@@ -22,4 +22,6 @@
 - (NSInteger)nBackArithmeticAnswer;
 - (NSInteger)nBackGridAnswer;
 
+- (void)makeEmpty;
+
 @end

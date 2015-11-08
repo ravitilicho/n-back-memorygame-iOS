@@ -18,11 +18,12 @@
 
 @implementation NBackList
 
+NSInteger gameCategory = 3;
+
 - (void)addQuestion:(TLQuestion *)question {
     
     if (![self isQuestionAtTop:[question questionId]]) {
-        [_questions insertObject:question atIndex:0];
-        NSInteger gameCategory = 1;
+        [[self questions] insertObject:question atIndex:0];
         NSInteger maxListSize = gameCategory + 1;
         
         if ([_questions count] > maxListSize) {
@@ -33,10 +34,9 @@
 
 - (BOOL)isNBackFull {
     
-    NSInteger gameCategory = 1;
     NSInteger maxListSize = gameCategory + 1;
 
-    return maxListSize >= [_questions count];
+    return [_questions count] >= maxListSize;
 }
 
 - (NSInteger)nBackArithmeticAnswer {
@@ -71,6 +71,10 @@
         _questions = [NSMutableArray new];
     }
     return _questions;
+}
+
+- (void)makeEmpty {
+    _questions = [NSMutableArray new];
 }
 
 @end

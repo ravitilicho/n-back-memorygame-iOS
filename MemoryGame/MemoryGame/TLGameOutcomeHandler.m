@@ -26,7 +26,7 @@
 
 - (void)registerQuestion:(TLQuestion *)question {
     if (question) {
-        [_questionsList addQuestion:question];
+        [[self questionsList] addQuestion:question];
     }
 }
 
@@ -76,11 +76,26 @@
     return UNDEFINED;
 }
 
+- (NBackList *)questionsList {
+    if (_questionsList == nil) {
+        _questionsList = [NBackList new];
+    }
+    return _questionsList;
+}
+
+- (void)reset {
+    [_questionsList makeEmpty];
+}
+
 - (TLGameScoreGenerator *)scoreGenerator {
     if (_scoreGenerator == nil) {
         _scoreGenerator = [TLGameScoreGenerator new];
     }
     return _scoreGenerator;
+}
+
+- (BOOL)canStartNBackRound {
+    return [_questionsList isNBackFull];
 }
 
 @end
