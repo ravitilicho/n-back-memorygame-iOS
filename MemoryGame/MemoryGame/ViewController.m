@@ -18,30 +18,43 @@
 @property (weak, nonatomic) IBOutlet UIButton *skipRoundButton;
 @property (weak, nonatomic) IBOutlet UILabel *gameplayStatusLabel;
 
+
 @property (nonatomic) QuestionsEngine *questionEngine;
 @property (nonatomic) TLQuestion *currentQuestion;
 @property (nonatomic) TLGameOutcomeHandler *outcomeHandler;
 @property (nonatomic) NSInteger totalScore;
 
 - (void)renderScoreLabel:(NSInteger)score;
+- (void)renderGameplayStatusLabelWith:(NSString *)text;
 
 @end
 
 @implementation ViewController
 
+int rounds = 0;
+
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
     [_skipRoundButton addTarget:self
                          action:@selector(onClickSkipRoundButton:)
        forControlEvents:UIControlEventTouchUpInside];
     
     _outcomeHandler = [[self questionEngine] outcomeHandler];
+    
+    [self renderGameplayStatusLabelWith:@"Remember highlighted grid position and arithmetic question..."];
     [self handleRound];
+    
 }
 
 #pragma mark - Core methods
 
 - (void)handleRound {
+    
+    if (rounds == 1) {
+        [self renderGameplayStatusLabelWith:@"Tap on the previous rounds' highlighted grid and arithmetic question answer"];
+    }
     
     _currentQuestion = [[self questionEngine] getNextQuestion];
     [_outcomeHandler registerQuestion:_currentQuestion];
@@ -51,6 +64,8 @@
     [_gridQuestionCollectionView reloadData];
     [_arithmeticAnswersCollectionView reloadData];
     [_skipRoundButton setEnabled:[_outcomeHandler canStartNBackRound]];
+    
+    rounds++;
     
     if (![_outcomeHandler canStartNBackRound]) {
         // Wait for 3 seconds and go to next round
@@ -243,6 +258,14 @@
     
     [_skipRoundButton setEnabled:[_outcomeHandler canStartNBackRound]];
 
+}
+
+- (void)renderGameplayStatusLabelWith:(NSString *)text {
+    
+    [_gameplayStatusLabel setText:text];
+    [_gameplayStatusLabel setNumberOfLines:0];
+    [_gameplayStatusLabel setNeedsDisplay];
+    
 }
 
 @end
