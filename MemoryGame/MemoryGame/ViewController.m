@@ -52,14 +52,16 @@ int rounds = 0;
 
 - (void)handleRound {
     
+    // TODO: Replace with n-back size
     if (rounds == 1) {
+        
         [self renderGameplayStatusLabelWith:@"Tap on the previous rounds' highlighted grid and arithmetic question answer"];
+        
     }
     
     _currentQuestion = [[self questionEngine] getNextQuestion];
     [_outcomeHandler registerQuestion:_currentQuestion];
     
-//    [self renderArithmeticQuestionLabel];
     [self renderScoreLabel:0];
     [_gridQuestionCollectionView reloadData];
     [_arithmeticAnswersCollectionView reloadData];
@@ -176,14 +178,14 @@ int rounds = 0;
             // Generate Score
             TLEventScore *eventScore = [_outcomeHandler getRoundScore:[TLEventInput forColorGridInputEvent:indexPath.row question:_currentQuestion]];
             
-            if ([eventScore outcome] == COLOR_GRID_CORRECT) {
-                NSLog([NSString stringWithFormat:@"Incrementing score by %ld", (long)[eventScore score]]);
-                [self renderScoreLabel:[eventScore score]];
-                
-            } else {
-                NSLog([NSString stringWithFormat:@"Decrementing score by %ld", (long)[eventScore score]]);
-                [self renderScoreLabel:[eventScore score]];
-            }
+            // Render status and score
+            NSMutableString *statusLabelString = [NSMutableString stringWithFormat:@"Grid answer %@. Score %@ by %ld!",
+                                            [eventScore outcome] == COLOR_GRID_CORRECT ? @"correct" : @"incorrect",
+                                            [eventScore score] > 0 ? @"up" : @"down",
+                                            labs([eventScore score])];
+            [self renderGameplayStatusLabelWith:statusLabelString];
+            [self renderScoreLabel:[eventScore score]];
+            
             
             // Revert background color
             double delayInSeconds = 0.5;
@@ -200,15 +202,14 @@ int rounds = 0;
             // Generate Score
             TLEventScore *eventScore = [_outcomeHandler getRoundScore:[TLEventInput forArithmeticInputEvent:indexPath.row question:_currentQuestion]];
             
-            // Update Score label
-            if ([eventScore outcome] == ARITHMETIC_CORRECT) {
-                NSLog([NSString stringWithFormat:@"Incrementing score by %ld", (long)[eventScore score]]);
-                [self renderScoreLabel:[eventScore score]];
-                
-            } else {
-                NSLog([NSString stringWithFormat:@"Decrementing score by %ld", (long)[eventScore score]]);
-                [self renderScoreLabel:[eventScore score]];
-            }
+            // Render status and score
+            NSMutableString *statusLabelString = [NSMutableString stringWithFormat:@"Grid answer %@. Score %@ by %ld!",
+                                                  [eventScore outcome] == ARITHMETIC_CORRECT ? @"correct" : @"incorrect",
+                                                  [eventScore score] > 0 ? @"up" : @"down",
+                                                  labs([eventScore score])];
+            [self renderGameplayStatusLabelWith:statusLabelString];
+            [self renderScoreLabel:[eventScore score]];
+
             
             double delayInSeconds = 0.5;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -245,9 +246,9 @@ int rounds = 0;
     [_skipRoundButton setEnabled:NO];
     
     TLEventScore *eventScore = [_outcomeHandler getRoundScore:[TLEventInput forSkipInputEvent:0 question:_currentQuestion]];
-    
+    NSString *roundSkipString = [NSString stringWithFormat:@"Round skipped. Score down by %ld", labs([eventScore score])];
     // Update Score label
-    NSLog([NSString stringWithFormat:@"Decrementing score by %ld", (long)[eventScore score]]);
+    [self renderGameplayStatusLabelWith:roundSkipString];
     [self renderScoreLabel:[eventScore score]];
     
     double delayInSeconds = 0.5;
