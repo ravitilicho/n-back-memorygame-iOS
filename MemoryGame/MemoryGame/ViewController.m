@@ -203,13 +203,14 @@ int rounds = 0;
             TLEventScore *eventScore = [_outcomeHandler getRoundScore:[TLEventInput forArithmeticInputEvent:indexPath.row question:_currentQuestion]];
             
             // Render status and score
-            NSMutableString *statusLabelString = [NSMutableString stringWithFormat:@"Grid answer %@. Score %@ by %ld!",
+            NSMutableString *statusLabelString = [NSMutableString stringWithFormat:@"Arithmetic answer %@. Score %@ by %ld!",
                                                   [eventScore outcome] == ARITHMETIC_CORRECT ? @"correct" : @"incorrect",
                                                   [eventScore score] > 0 ? @"up" : @"down",
                                                   labs([eventScore score])];
             [self renderGameplayStatusLabelWith:statusLabelString];
             [self renderScoreLabel:[eventScore score]];
 
+            
             
             double delayInSeconds = 0.5;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -229,12 +230,12 @@ int rounds = 0;
 // 1
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    CGFloat pagewidth = CGRectGetWidth(collectionView.bounds);
     if (collectionView == _gridQuestionCollectionView) {
+        CGFloat availbleWidth = pagewidth - 2*10;
+        return CGSizeMake(floor(availbleWidth/3), floor(availbleWidth/3));
         
-        return CGSizeMake(94, 94);
-        
-    } else { // if (collectionView == _arithmeticAnswersCollectionView)
-        
+    } else {
         return CGSizeMake(50, 50);
     }
 }
