@@ -17,17 +17,13 @@
 
 @implementation TLGameScoreGenerator
 
-static NSString * const COLOR_QUESTION_PASS;
-static NSString * const COLOR_QUESTION_FAIL;
-static NSString * const ARITHMETIC_QUESTION_PASS;
-static NSString * const ARITHMETIC_QUESTION_FAIL;
-
 - (NSDictionary *) scoresDictionary {
     return [[NSDictionary alloc] initWithObjectsAndKeys:
                                 [NSNumber numberWithInt:2], [NSNumber numberWithInt:COLOR_GRID_CORRECT],
                                 [NSNumber numberWithInt:-1], [NSNumber numberWithInt:COLOR_GRID_INCORRECT],
                                 [NSNumber numberWithInt:4], [NSNumber numberWithInt:ARITHMETIC_CORRECT],
                                 [NSNumber numberWithInt:-1], [NSNumber numberWithInt:ARITHMETIC_INCORRECT],
+                                [NSNumber numberWithInt:-3], [NSNumber numberWithInt:SKIPPED],
                                 nil];
 }
 

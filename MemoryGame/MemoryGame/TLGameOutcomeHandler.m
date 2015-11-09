@@ -73,6 +73,10 @@
                 return COLOR_GRID_INCORRECT;
             }
             
+        } else if (eventType == SKIP) {
+            
+            return SKIPPED;
+            
         }
         
     }
@@ -114,6 +118,11 @@
         
     } else if ([input type] == COLOR_GRID) {
         
+        [_roundStates setCurrentGridQuestionAnswered:[input questionId]];
+        
+    } else if ([input type] == SKIP) {
+        
+        [_roundStates setCurrentArithmeticQuestionAnswered:[input questionId]];
         [_roundStates setCurrentGridQuestionAnswered:[input questionId]];
         
     }

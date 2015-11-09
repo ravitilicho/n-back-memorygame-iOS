@@ -74,7 +74,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i22-Br-hr4">
-                                <rect key="frame" x="461.5" y="40" width="118.5" height="20.5"/>
+                                <rect key="frame" x="461" y="40" width="118.5" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="118.5" id="ZMV-kr-i1b"/>
                                     <constraint firstAttribute="height" constant="20.5" id="i8o-Pn-sOV"/>
@@ -83,8 +83,8 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KhZ-6P-nb6" userLabel="ArithmeticAnswersCollectionView">
-                                <rect key="frame" x="10" y="452" width="345" height="128"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KhZ-6P-nb6" userLabel="ArithmeticAnswersCollectionView">
+                                <rect key="frame" x="10" y="432" width="310" height="128"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="345" id="iZ1-EU-Hzm"/>
@@ -132,16 +132,32 @@
                                     <outlet property="delegate" destination="DuN-wR-br9" id="7Kp-af-RIj"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="45b-iz-Aas">
+                                <rect key="frame" x="219" y="570" width="101" height="30"/>
+                                <color key="tintColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Skip Round &gt;&gt;"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Gameplay Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dky-TC-7b9">
+                                <rect key="frame" x="10" y="570" width="116.5" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Snk-il-qN2" firstAttribute="top" secondItem="Dky-TC-7b9" secondAttribute="bottom" id="1VM-w2-cxB"/>
                             <constraint firstItem="OJh-JB-tQ1" firstAttribute="top" secondItem="VZ4-Fc-ky5" secondAttribute="bottom" constant="58" id="1cP-ge-ffH"/>
                             <constraint firstItem="i22-Br-hr4" firstAttribute="top" secondItem="VZ4-Fc-ky5" secondAttribute="bottom" constant="20" id="7um-vH-V9o"/>
                             <constraint firstAttribute="trailingMargin" secondItem="i22-Br-hr4" secondAttribute="trailing" id="HIA-N5-0Ba"/>
-                            <constraint firstItem="Snk-il-qN2" firstAttribute="top" secondItem="KhZ-6P-nb6" secondAttribute="bottom" constant="20" id="HXd-nE-Tii"/>
+                            <constraint firstItem="Snk-il-qN2" firstAttribute="top" secondItem="KhZ-6P-nb6" secondAttribute="bottom" constant="40" id="HXd-nE-Tii"/>
+                            <constraint firstItem="Dky-TC-7b9" firstAttribute="leading" secondItem="KhZ-6P-nb6" secondAttribute="leading" id="NGC-wT-Y7f"/>
+                            <constraint firstItem="45b-iz-Aas" firstAttribute="trailing" secondItem="KhZ-6P-nb6" secondAttribute="trailing" id="O2I-OU-Y1m"/>
+                            <constraint firstItem="Snk-il-qN2" firstAttribute="top" secondItem="45b-iz-Aas" secondAttribute="bottom" id="Pob-pp-Qcr"/>
                             <constraint firstItem="OJh-JB-tQ1" firstAttribute="leading" secondItem="tNc-9T-BWf" secondAttribute="leading" constant="10" id="QiF-Vz-zT7"/>
                             <constraint firstItem="OJh-JB-tQ1" firstAttribute="centerY" secondItem="tNc-9T-BWf" secondAttribute="centerY" constant="-65" id="Uck-yf-5Km"/>
                             <constraint firstItem="KhZ-6P-nb6" firstAttribute="width" secondItem="OJh-JB-tQ1" secondAttribute="width" id="Uyz-wf-r6F"/>
+                            <constraint firstItem="Dky-TC-7b9" firstAttribute="centerY" secondItem="45b-iz-Aas" secondAttribute="centerY" id="fvQ-ri-vL7"/>
                             <constraint firstItem="OJh-JB-tQ1" firstAttribute="top" secondItem="i22-Br-hr4" secondAttribute="bottom" constant="5" id="gRT-HH-Qi0"/>
                             <constraint firstItem="OJh-JB-tQ1" firstAttribute="top" secondItem="i22-Br-hr4" secondAttribute="bottom" constant="35.5" id="h8y-z1-XC4"/>
                             <constraint firstItem="KhZ-6P-nb6" firstAttribute="leading" secondItem="OJh-JB-tQ1" secondAttribute="leading" id="sgu-tq-AWp"/>
@@ -156,8 +172,10 @@
                     </view>
                     <connections>
                         <outlet property="arithmeticAnswersCollectionView" destination="KhZ-6P-nb6" id="TFx-Ob-7SW"/>
+                        <outlet property="gameplayStatusLabel" destination="Dky-TC-7b9" id="HTS-By-N03"/>
                         <outlet property="gridQuestionCollectionView" destination="OJh-JB-tQ1" id="Hd9-ob-v11"/>
                         <outlet property="scoreLabel" destination="i22-Br-hr4" id="3pv-XQ-yfV"/>
+                        <outlet property="skipRoundButton" destination="45b-iz-Aas" id="vUv-Um-zj7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EBZ-XW-jV2" userLabel="First Responder" sceneMemberID="firstResponder"/>

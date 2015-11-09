@@ -13,6 +13,7 @@ typedef enum
 {
     ARITHMETIC,
     COLOR_GRID,
+    SKIP,
     TIMER_EXPIRED
 } TLEventType;
 
@@ -21,6 +22,7 @@ typedef NS_ENUM(NSUInteger, TLEventOutcome) {
     ARITHMETIC_INCORRECT = 1,
     COLOR_GRID_CORRECT = 2,
     COLOR_GRID_INCORRECT = 3,
+    SKIPPED = 4,
     UNDEFINED = 10
 };
 

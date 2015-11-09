@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *gridQuestionCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *arithmeticAnswersCollectionView;
+@property (weak, nonatomic) IBOutlet UIButton *skipRoundButton;
+@property (weak, nonatomic) IBOutlet UILabel *gameplayStatusLabel;
 
 @property (nonatomic) QuestionsEngine *questionEngine;
 @property (nonatomic) TLQuestion *currentQuestion;
@@ -29,6 +31,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [_skipRoundButton addTarget:self
+                         action:@selector(onClickSkipRoundButton:)
+       forControlEvents:UIControlEventTouchUpInside];
     
     _outcomeHandler = [[self questionEngine] outcomeHandler];
     [self handleRound];
@@ -45,6 +50,7 @@
     [self renderScoreLabel:0];
     [_gridQuestionCollectionView reloadData];
     [_arithmeticAnswersCollectionView reloadData];
+    [_skipRoundButton setEnabled:[_outcomeHandler canStartNBackRound]];
     
     if (![_outcomeHandler canStartNBackRound]) {
         // Wait for 3 seconds and go to next round
@@ -215,6 +221,28 @@
         
         return CGSizeMake(50, 50);
     }
+}
+
+#pragma mark - 
+
+- (void)onClickSkipRoundButton:(UIButton *)sender {
+    
+    [_skipRoundButton setEnabled:NO];
+    
+    TLEventScore *eventScore = [_outcomeHandler getRoundScore:[TLEventInput forSkipInputEvent:0 question:_currentQuestion]];
+    
+    // Update Score label
+    NSLog([NSString stringWithFormat:@"Decrementing score by %ld", (long)[eventScore score]]);
+    [self renderScoreLabel:[eventScore score]];
+    
+    double delayInSeconds = 0.5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self nextRound];
+    });
+    
+    [_skipRoundButton setEnabled:[_outcomeHandler canStartNBackRound]];
+
 }
 
 @end

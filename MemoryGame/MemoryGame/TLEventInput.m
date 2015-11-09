@@ -25,6 +25,14 @@
     return result;
 }
 
++ (TLEventInput *)forSkipInputEvent:(NSInteger) input question:(TLQuestion *) question {
+    TLEventInput *result = [TLEventInput new];
+    [result setInput:input];
+    [result setType:SKIP];
+    [result setQuestion:question];
+    return result;
+}
+
 - (NSInteger)questionId {
     return [[self question] questionId];
 }

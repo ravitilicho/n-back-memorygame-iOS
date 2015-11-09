@@ -19,7 +19,7 @@
 
 @implementation NBackList
 
-NSInteger gameCategory = 1;
+NSInteger gameCategory = 2;
 
 - (void)addQuestion:(TLQuestion *)question {
     
