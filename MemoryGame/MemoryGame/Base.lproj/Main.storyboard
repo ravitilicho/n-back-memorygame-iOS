@@ -132,31 +132,16 @@
                                     <outlet property="delegate" destination="DuN-wR-br9" id="7Kp-af-RIj"/>
                                 </connections>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arithmetic Question Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dY6-7D-pFk">
-                                <rect key="frame" x="20" y="411.5" width="199" height="20.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="199" id="P2I-t2-s7Z"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="OJh-JB-tQ1" firstAttribute="top" secondItem="VZ4-Fc-ky5" secondAttribute="bottom" constant="58" id="1cP-ge-ffH"/>
-                            <constraint firstItem="dY6-7D-pFk" firstAttribute="top" secondItem="OJh-JB-tQ1" secondAttribute="bottom" constant="5" id="3eq-FM-EXW"/>
                             <constraint firstItem="i22-Br-hr4" firstAttribute="top" secondItem="VZ4-Fc-ky5" secondAttribute="bottom" constant="20" id="7um-vH-V9o"/>
-                            <constraint firstItem="KhZ-6P-nb6" firstAttribute="top" secondItem="dY6-7D-pFk" secondAttribute="bottom" constant="20" id="8jJ-sk-EOM"/>
-                            <constraint firstItem="dY6-7D-pFk" firstAttribute="leading" secondItem="OJh-JB-tQ1" secondAttribute="leading" id="ADB-VN-PnB"/>
-                            <constraint firstItem="dY6-7D-pFk" firstAttribute="leading" secondItem="tNc-9T-BWf" secondAttribute="leadingMargin" id="DYq-xh-zBP"/>
                             <constraint firstAttribute="trailingMargin" secondItem="i22-Br-hr4" secondAttribute="trailing" id="HIA-N5-0Ba"/>
                             <constraint firstItem="Snk-il-qN2" firstAttribute="top" secondItem="KhZ-6P-nb6" secondAttribute="bottom" constant="20" id="HXd-nE-Tii"/>
-                            <constraint firstItem="dY6-7D-pFk" firstAttribute="top" secondItem="OJh-JB-tQ1" secondAttribute="bottom" constant="5" id="O2p-0z-tci"/>
                             <constraint firstItem="OJh-JB-tQ1" firstAttribute="leading" secondItem="tNc-9T-BWf" secondAttribute="leading" constant="10" id="QiF-Vz-zT7"/>
                             <constraint firstItem="OJh-JB-tQ1" firstAttribute="centerY" secondItem="tNc-9T-BWf" secondAttribute="centerY" constant="-65" id="Uck-yf-5Km"/>
                             <constraint firstItem="KhZ-6P-nb6" firstAttribute="width" secondItem="OJh-JB-tQ1" secondAttribute="width" id="Uyz-wf-r6F"/>
-                            <constraint firstItem="Snk-il-qN2" firstAttribute="top" secondItem="dY6-7D-pFk" secondAttribute="bottom" constant="168" id="eyg-UZ-fNp"/>
                             <constraint firstItem="OJh-JB-tQ1" firstAttribute="top" secondItem="i22-Br-hr4" secondAttribute="bottom" constant="5" id="gRT-HH-Qi0"/>
                             <constraint firstItem="OJh-JB-tQ1" firstAttribute="top" secondItem="i22-Br-hr4" secondAttribute="bottom" constant="35.5" id="h8y-z1-XC4"/>
                             <constraint firstItem="KhZ-6P-nb6" firstAttribute="leading" secondItem="OJh-JB-tQ1" secondAttribute="leading" id="sgu-tq-AWp"/>
@@ -166,15 +151,11 @@
                                 <exclude reference="1cP-ge-ffH"/>
                                 <exclude reference="Uck-yf-5Km"/>
                                 <exclude reference="gRT-HH-Qi0"/>
-                                <exclude reference="ADB-VN-PnB"/>
-                                <exclude reference="O2p-0z-tci"/>
-                                <exclude reference="eyg-UZ-fNp"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="arithmeticAnswersCollectionView" destination="KhZ-6P-nb6" id="TFx-Ob-7SW"/>
-                        <outlet property="arithmeticQuestionLabel" destination="dY6-7D-pFk" id="s0p-tC-4Lv"/>
                         <outlet property="gridQuestionCollectionView" destination="OJh-JB-tQ1" id="Hd9-ob-v11"/>
                         <outlet property="scoreLabel" destination="i22-Br-hr4" id="3pv-XQ-yfV"/>
                     </connections>

@@ -41,7 +41,7 @@
     _currentQuestion = [[self questionEngine] getNextQuestion];
     [_outcomeHandler registerQuestion:_currentQuestion];
     
-    [self renderArithmeticQuestionLabel];
+//    [self renderArithmeticQuestionLabel];
     [self renderScoreLabel:0];
     [_gridQuestionCollectionView reloadData];
     [_arithmeticAnswersCollectionView reloadData];
@@ -51,13 +51,16 @@
         double delayInSeconds = 3.0;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            /* TODO: Fix this recursion */
             [self nextRound];
         });
     }
 }
 
 - (void)nextRound {
-    [self handleRound];
+    if ([_outcomeHandler canGoToNextRound]) {
+        [self handleRound];
+    }
 }
 
 - (QuestionsEngine *)questionEngine {
@@ -90,7 +93,7 @@
     if (collectionView == _gridQuestionCollectionView) {
         return 9;
     } else if (collectionView == _arithmeticAnswersCollectionView) {
-        return 10;
+        return _currentQuestion ? [[_currentQuestion arithmeticAnswerOptions] count] : 10;
     }
     
     return 0;
@@ -98,22 +101,27 @@
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     UICollectionViewCell *cell;
     
     if (collectionView == _gridQuestionCollectionView) {
         
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GridQuestionCell" forIndexPath:indexPath];
         UILabel *label = (UILabel *)[[cell contentView] viewWithTag:1];
-        [label setText:@""];
         
         if (indexPath.row == _currentQuestion.gridAnswer) {
             
             cell.contentView.backgroundColor = UIColorFromRGB(0xFEFB00);
+            NSString *arithmeticQuestion = [NSString stringWithFormat:@"%@ = ?", [[_currentQuestion arithmeticQuestion] questionString]];
+            [label setText:arithmeticQuestion];
+            [label setNeedsDisplay];
             
         } else {
             
             cell.contentView.backgroundColor = UIColorFromRGB(0x76D5FF);
-            
+            [label setText:@""];
+            [label setNeedsDisplay];
+
         }
 
         
@@ -121,7 +129,7 @@
         
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ArithmeticAnswerCell" forIndexPath:indexPath];
         UILabel *label = (UILabel *)[[cell contentView] viewWithTag:1];
-        [label setText:[NSString stringWithFormat:@"%ld", (long)indexPath.row]];
+        [label setText:[NSString stringWithFormat:@"%@", [_currentQuestion arithmeticAnswerOptions][indexPath.row]]];
         
     }
 
@@ -132,19 +140,21 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (collectionView == _gridQuestionCollectionView) {
+    
+    if ([_outcomeHandler canStartNBackRound]) {
         
-        if ([_outcomeHandler canStartNBackRound]) {
-            
-            UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+        UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+
+        // Listen to tap on cell only if current grid question is not answered already
+        if ((collectionView == _gridQuestionCollectionView) && ![_outcomeHandler isCurrentRoundGridQuestionAnswered]) {
             
             // Change Background color
-            // TODO: Animate later
+            // TODO: Doesn't work, fix it! Animate later
             [cell setBackgroundColor:UIColorFromRGB(0xD783FF)];
             
-            // Update Score
+            // Generate Score
             TLEventScore *eventScore = [_outcomeHandler getRoundScore:[TLEventInput forColorGridInputEvent:indexPath.row question:_currentQuestion]];
-
+            
             if ([eventScore outcome] == COLOR_GRID_CORRECT) {
                 NSLog([NSString stringWithFormat:@"Incrementing score by %ld", (long)[eventScore score]]);
                 [self renderScoreLabel:[eventScore score]];
@@ -162,6 +172,29 @@
             });
             
             [cell setBackgroundColor:UIColorFromRGB(0x76D5FF)];
+            
+            // Listen to tap on cell only if current grid question is not answered already
+        } else if (collectionView == _arithmeticAnswersCollectionView && ![_outcomeHandler isCurrentRoundArithmeticQuestionAnswered]) {
+            
+            // Generate Score
+            TLEventScore *eventScore = [_outcomeHandler getRoundScore:[TLEventInput forArithmeticInputEvent:indexPath.row question:_currentQuestion]];
+            
+            // Update Score label
+            if ([eventScore outcome] == ARITHMETIC_CORRECT) {
+                NSLog([NSString stringWithFormat:@"Incrementing score by %ld", (long)[eventScore score]]);
+                [self renderScoreLabel:[eventScore score]];
+                
+            } else {
+                NSLog([NSString stringWithFormat:@"Decrementing score by %ld", (long)[eventScore score]]);
+                [self renderScoreLabel:[eventScore score]];
+            }
+            
+            double delayInSeconds = 0.5;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [self nextRound];
+            });
+            
         }
     }
 }

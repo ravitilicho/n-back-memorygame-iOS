@@ -16,9 +16,10 @@
 @interface TLGameOutcomeHandler ()
 
 @property(nonatomic) TLGameScoreGenerator *scoreGenerator;
-@property(nonatomic) NBackList *questionsList;
+@property(nonatomic) NBackList *roundStates;
 
 - (TLEventOutcome) outcome:(TLEventInput *)input;
+- (void)updateCurrentRoundState:(TLEventInput *)input;
 
 @end
 
@@ -26,16 +27,19 @@
 
 - (void)registerQuestion:(TLQuestion *)question {
     if (question) {
-        [[self questionsList] addQuestion:question];
+        [[self roundStates] addQuestion:question];
     }
 }
 
 - (TLEventScore *) getRoundScore:(TLEventInput *)eventInput {
     
-    // 1. Generate Outcome
+    // 1. Update current RoundState
+    [self updateCurrentRoundState:eventInput];
+    
+    // 2. Generate Outcome
     TLEventOutcome outcome = [self outcome:eventInput];
     
-    // 2. Generate Score from Outcome
+    // 3. Generate Score from Outcome
     TLEventScore *score = [[self scoreGenerator] generateScore:outcome];
     
     return score;
@@ -45,13 +49,13 @@
     
     TLEventType eventType = [input type];
 
-    if ([_questionsList isNBackFull]) {
+    if ([_roundStates isNBackFull]) {
         
         NSInteger answer;
         // Find out if the n-back answer is correct
         if (eventType == ARITHMETIC) {
             
-            answer = [_questionsList nBackArithmeticAnswer];
+            answer = [_roundStates nBackArithmeticAnswer];
             
             if (answer == [input input]) {
                 return ARITHMETIC_CORRECT;
@@ -61,7 +65,7 @@
             
         } else if (eventType == COLOR_GRID) {
             
-            answer = [_questionsList nBackGridAnswer];
+            answer = [_roundStates nBackGridAnswer];
             
             if (answer == [input input]) {
                 return COLOR_GRID_CORRECT;
@@ -76,15 +80,15 @@
     return UNDEFINED;
 }
 
-- (NBackList *)questionsList {
-    if (_questionsList == nil) {
-        _questionsList = [NBackList new];
+- (NBackList *)roundStates {
+    if (_roundStates == nil) {
+        _roundStates = [NBackList new];
     }
-    return _questionsList;
+    return _roundStates;
 }
 
 - (void)reset {
-    [_questionsList makeEmpty];
+    [_roundStates makeEmpty];
 }
 
 - (TLGameScoreGenerator *)scoreGenerator {
@@ -94,8 +98,35 @@
     return _scoreGenerator;
 }
 
-- (BOOL)canStartNBackRound {
-    return [_questionsList isNBackFull];
+- (BOOL) canStartNBackRound {
+    return [_roundStates isNBackFull];
 }
+
+- (BOOL) canGoToNextRound {
+    return ![self canStartNBackRound] || [_roundStates isCurrentQuestionFullyAnswered];
+}
+
+- (void)updateCurrentRoundState:(TLEventInput *)input {
+    
+    if ([input type] == ARITHMETIC) {
+        
+        [_roundStates setCurrentArithmeticQuestionAnswered:[input questionId]];
+        
+    } else if ([input type] == COLOR_GRID) {
+        
+        [_roundStates setCurrentGridQuestionAnswered:[input questionId]];
+        
+    }
+    
+}
+
+- (BOOL) isCurrentRoundArithmeticQuestionAnswered {
+    return [_roundStates isCurrentArithmeticQuestionAnswered];
+}
+
+- (BOOL) isCurrentRoundGridQuestionAnswered {
+    return [_roundStates isCurrentGridQuestionAnswered];
+}
+
 
 @end

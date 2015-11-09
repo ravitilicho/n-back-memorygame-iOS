@@ -14,7 +14,14 @@
 
 - (void)registerQuestion:(TLQuestion *)question;
 - (TLEventScore *) getRoundScore:(TLEventInput *)eventInput;
+
+- (BOOL) isCurrentRoundArithmeticQuestionAnswered;
+- (BOOL) isCurrentRoundGridQuestionAnswered;
+
 - (BOOL)canStartNBackRound;
+
+// YES when user answered both arithmetic and grid question
+- (BOOL) canGoToNextRound;
 
 // Invoked when some game options change
 - (void)reset;

@@ -7,10 +7,11 @@
 //
 
 #import "NBackList.h"
+#import "TLRoundState.h"
 
 @interface NBackList ()
 
-@property(nonatomic) NSMutableArray *questions;
+@property(nonatomic) NSMutableArray *roundStates;
 
 - (BOOL)isQuestionAtTop:(NSInteger)questionId;
 
@@ -18,16 +19,18 @@
 
 @implementation NBackList
 
-NSInteger gameCategory = 3;
+NSInteger gameCategory = 1;
 
 - (void)addQuestion:(TLQuestion *)question {
     
+    TLRoundState *roundState = [[TLRoundState alloc] initWithQuestion:question];
+    
     if (![self isQuestionAtTop:[question questionId]]) {
-        [[self questions] insertObject:question atIndex:0];
+        [[self roundStates] insertObject:roundState atIndex:0];
         NSInteger maxListSize = gameCategory + 1;
         
-        if ([_questions count] > maxListSize) {
-            _questions = [[_questions subarrayWithRange:NSMakeRange(0, maxListSize - 1)] mutableCopy];
+        if ([_roundStates count] > maxListSize) {
+            _roundStates = [[_roundStates subarrayWithRange:NSMakeRange(0, maxListSize)] mutableCopy];
         }
     }
 }
@@ -36,7 +39,7 @@ NSInteger gameCategory = 3;
     
     NSInteger maxListSize = gameCategory + 1;
 
-    return [_questions count] >= maxListSize;
+    return [_roundStates count] >= maxListSize;
 }
 
 - (NSInteger)nBackArithmeticAnswer {
@@ -44,7 +47,7 @@ NSInteger gameCategory = 3;
     if (![self isNBackFull]) {
         return -1;
     } else {
-        return [[_questions lastObject] arithmeticAnswer];
+        return [[[_roundStates lastObject] question] arithmeticAnswer];
     }
 }
 
@@ -53,28 +56,83 @@ NSInteger gameCategory = 3;
     if (![self isNBackFull]) {
         return -1;
     } else {
-        return [[_questions lastObject] gridAnswer];
+        return [[[_roundStates lastObject] question] gridAnswer];
     }
 }
 
 - (BOOL)isQuestionAtTop:(NSInteger)questionId {
-    if ([_questions count] == 0) {
+    if ([_roundStates count] == 0) {
         return NO;
     } else {
-        return [[_questions firstObject] questionId] == questionId;
+        return [[[_roundStates firstObject] question] questionId] == questionId;
     }
 }
 
-- (NSMutableArray *)questions {
+- (NSMutableArray *)roundStates {
     
-    if (_questions == nil) {
-        _questions = [NSMutableArray new];
+    if (_roundStates == nil) {
+        _roundStates = [NSMutableArray new];
     }
-    return _questions;
+    return _roundStates;
 }
 
 - (void)makeEmpty {
-    _questions = [NSMutableArray new];
+    _roundStates = [NSMutableArray new];
+}
+
+- (BOOL)isCurrentArithmeticQuestionAnswered {
+    
+    if ([[self roundStates] count] == 0) {
+        return NO;
+    } else {
+        return [[[self roundStates] firstObject] arithmeticQuestionAnswered];
+    }
+}
+
+- (BOOL)isCurrentGridQuestionAnswered {
+    
+    if ([[self roundStates] count] == 0) {
+        return NO;
+    } else {
+        return [[[self roundStates] firstObject] gridQuestionAnswered];
+    }
+    
+}
+
+- (void)setCurrentArithmeticQuestionAnswered:(NSInteger)questionId {
+
+    TLRoundState *currentRoundState = [_roundStates firstObject];
+    
+    // Update state only if the passed questoinId matches
+    if ([[currentRoundState question] questionId] == questionId) {
+        
+        [currentRoundState setArithmeticQuestionAnswered:YES];
+        
+    }
+}
+
+- (void)setCurrentGridQuestionAnswered:(NSInteger)questionId {
+    
+    TLRoundState *currentRoundState = [_roundStates firstObject];
+    
+    // Update state only if the passed questoinId matches
+    if ([[currentRoundState question] questionId] == questionId) {
+        
+        [currentRoundState setGridQuestionAnswered:YES];
+        
+    }
+
+}
+
+- (BOOL)isCurrentQuestionFullyAnswered {
+    
+    if ([_roundStates count] == 0)
+        return NO;
+    else {
+        
+        return [[_roundStates firstObject] isAllAnswered];
+        
+    }
 }
 
 @end
