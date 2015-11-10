@@ -14,8 +14,13 @@
 - (instancetype) initWithOptions;
 
 - (NSInteger) nBackCategory;
+- (BOOL) isMaxNBackCategory:(NSInteger)category;
+- (NSInteger) minNBackCategory;
 - (void) setNBackCategory:(NSInteger)category;
+
 - (Point) gridQuestionSize;
+- (BOOL) isMaxGridQuestionSize:(Point)size;
+- (Point) minGridQuestionSize;
 - (void) setGridQuestionSize:(Point)size;
 
 - (NSString *) gameplayMode;

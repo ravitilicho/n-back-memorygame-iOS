@@ -15,6 +15,7 @@
 
 @interface TLGameOutcomeHandler ()
 
+@property (nonatomic) NSInteger gameTotalScore;
 @property(nonatomic) TLGameScoreGenerator *scoreGenerator;
 @property(nonatomic) NBackList *roundStates;
 
@@ -26,9 +27,13 @@
 @implementation TLGameOutcomeHandler
 
 - (void)registerQuestion:(TLQuestion *)question {
+    
     if (question) {
+        
         [[self roundStates] addQuestion:question];
+        
     }
+    
 }
 
 - (TLEventScore *) getRoundScore:(TLEventInput *)eventInput {
@@ -41,6 +46,9 @@
     
     // 3. Generate Score from Outcome
     TLEventScore *score = [[self scoreGenerator] generateScore:outcome];
+    
+    // 4. Update total score
+    _gameTotalScore += [score score];
     
     return score;
 }
@@ -135,6 +143,10 @@
 
 - (BOOL) isCurrentRoundGridQuestionAnswered {
     return [_roundStates isCurrentGridQuestionAnswered];
+}
+
+- (NSInteger) gameTotalScore {
+    return _gameTotalScore;
 }
 
 

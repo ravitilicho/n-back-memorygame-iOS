@@ -34,6 +34,7 @@ NSInteger MAX_NBACK_CATEGORY = 6;
     
     self = [TLGameOptions new];
     
+    // TODO: Comment out after Options UI screen is in
 //    if (![self savedOptionsExist]) {
     
         Point defaultGridSize = {6, 6};
@@ -53,6 +54,38 @@ NSInteger MAX_NBACK_CATEGORY = 6;
     
     NSInteger category = [[[self options] objectForKey:nBackCategory] integerValue];
     return category;
+    
+}
+
+- (NSInteger) minNBackCategory {
+    
+    return MIN_NBACK_CATEGORY;
+    
+}
+
+- (BOOL) isMaxNBackCategory:(NSInteger)category {
+    
+    return category >= MAX_NBACK_CATEGORY;
+    
+}
+
+- (BOOL) isMaxGridQuestionSize:(Point)size {
+    
+    if (size.h == size.v) {
+        
+        return size.h >= MAX_GRID_LENGTH;
+        
+    }
+    
+    return NO;
+    
+}
+
+- (Point) minGridQuestionSize {
+    
+    Point point = {MIN_GRID_LENGTH, MIN_GRID_LENGTH};
+    
+    return point;
     
 }
 

@@ -18,11 +18,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *skipRoundButton;
 @property (weak, nonatomic) IBOutlet UILabel *gameplayStatusLabel;
 
-
 @property (nonatomic) QuestionsEngine *questionEngine;
 @property (nonatomic) TLQuestion *currentQuestion;
 @property (nonatomic) TLGameOutcomeHandler *outcomeHandler;
-@property (nonatomic) NSInteger totalScore;
 
 - (void)renderScoreLabel:(NSInteger)score;
 - (void)renderGameplayStatusLabelWith:(NSString *)text;
@@ -94,15 +92,15 @@ int rounds = 0;
 
 // Adds the event score to the total score and renders it
 - (void)renderScoreLabel:(NSInteger)score {
-    _totalScore += score;
     
-    NSString *scoreString = [NSString stringWithFormat:@"Score: %ld", (long)_totalScore];
+    NSString *scoreString = [NSString stringWithFormat:@"Score: %ld", [_outcomeHandler gameTotalScore]];
     [_scoreLabel setText:scoreString];
     [_scoreLabel setNeedsDisplay];
+    
 }
 
 
-#pragma mark - UICollectionViewDataSource methods
+#pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
@@ -199,8 +197,6 @@ int rounds = 0;
             [self renderGameplayStatusLabelWith:statusLabelString];
             [self renderScoreLabel:[eventScore score]];
             
-            
-            // Revert background color
             [self nextRound];
             
             // Listen to tap on cell only if current grid question is not answered already
@@ -226,7 +222,7 @@ int rounds = 0;
     }
 }
 
-#pragma mark – UICollectionViewDelegateFlowLayout
+#pragma mark - UICollectionViewDelegateFlowLayout
 
 // 1
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -258,8 +254,6 @@ int rounds = 0;
     return 2.0;
     
 }
-
-#pragma mark - 
 
 - (void)onClickSkipRoundButton:(UIButton *)sender {
     

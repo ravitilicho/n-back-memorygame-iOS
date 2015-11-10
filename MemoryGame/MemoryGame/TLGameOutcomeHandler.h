@@ -25,4 +25,7 @@
 
 // Invoked when some game options change
 - (void)reset;
+
+- (NSInteger) gameTotalScore;
+
 @end
