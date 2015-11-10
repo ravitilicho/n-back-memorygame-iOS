@@ -8,6 +8,7 @@
 
 #import "NBackList.h"
 #import "TLRoundState.h"
+#import "TLGameOptions.h"
 
 @interface NBackList ()
 
@@ -19,15 +20,13 @@
 
 @implementation NBackList
 
-NSInteger gameCategory = 1;
-
 - (void)addQuestion:(TLQuestion *)question {
     
     TLRoundState *roundState = [[TLRoundState alloc] initWithQuestion:question];
     
     if (![self isQuestionAtTop:[question questionId]]) {
         [[self roundStates] insertObject:roundState atIndex:0];
-        NSInteger maxListSize = gameCategory + 1;
+        NSInteger maxListSize = [self nBackCategory] + 1;
         
         if ([_roundStates count] > maxListSize) {
             _roundStates = [[_roundStates subarrayWithRange:NSMakeRange(0, maxListSize)] mutableCopy];
@@ -37,7 +36,7 @@ NSInteger gameCategory = 1;
 
 - (BOOL)isNBackFull {
     
-    NSInteger maxListSize = gameCategory + 1;
+    NSInteger maxListSize = [self nBackCategory] + 1;
 
     return [_roundStates count] >= maxListSize;
 }
@@ -133,6 +132,12 @@ NSInteger gameCategory = 1;
         return [[_roundStates firstObject] isAllAnswered];
         
     }
+}
+
+- (NSInteger) nBackCategory {
+    
+    return [[[TLGameOptions alloc] initWithOptions] nBackCategory];
+    
 }
 
 @end

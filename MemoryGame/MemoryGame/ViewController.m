@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "QuestionsEngine.h"
+#import "TLGameOptions.h"
 
 @interface ViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -51,13 +52,13 @@ int rounds = 0;
 
 - (void)handleRound {
     
-    // TODO: Replace with n-back size
-    if (rounds == 1) {
+    if (rounds == [[self gameOptions] nBackCategory]) {
         
         [self renderGameplayStatusLabelWith:@"Tap on the previous rounds' highlighted grid and arithmetic question answer"];
         
     }
     
+    [self renderScoreLabel:0];
     _currentQuestion = [[self questionEngine] getNextQuestion];
     [_outcomeHandler registerQuestion:_currentQuestion];
     
@@ -106,7 +107,10 @@ int rounds = 0;
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
     if (collectionView == _gridQuestionCollectionView) {
-        return 9;
+        
+        Point gridSizeFromOptions = [[self gameOptions] gridQuestionSize];
+        return gridSizeFromOptions.h * gridSizeFromOptions.v;
+        
     } else if (collectionView == _arithmeticAnswersCollectionView) {
         return _currentQuestion ? [[_currentQuestion arithmeticAnswerOptions] count] : 10;
     }
@@ -131,7 +135,7 @@ int rounds = 0;
             
             cell.contentView.backgroundColor = UIColorFromRGB(0xFEFB00);
             
-            NSString *arithmeticQuestion = [NSString stringWithFormat:@"%@ = ?", [[_currentQuestion arithmeticQuestion] questionString]];
+            NSString *arithmeticQuestion = [NSString stringWithFormat:@"%@=?", [[_currentQuestion arithmeticQuestion] questionString]];
             [label setText:arithmeticQuestion];
             [label setNeedsDisplay];
             
@@ -144,7 +148,7 @@ int rounds = 0;
         }
 
         
-    } else { // if (collectionView == _arithmeticAnswersCollectionView)
+    } else if (collectionView == _arithmeticAnswersCollectionView) {
         
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ArithmeticAnswerCell" forIndexPath:indexPath];
         [cell.contentView.layer setBorderColor:[UIColorFromRGB(0xD783FF) CGColor]];
@@ -204,26 +208,22 @@ int rounds = 0;
             
             [cell.contentView.layer setBorderWidth:2];
             
+            // Generate Score
+            TLEventScore *eventScore = [_outcomeHandler getRoundScore:[TLEventInput forArithmeticInputEvent:indexPath.row question:_currentQuestion]];
+            
+            // Render status and score
+            NSMutableString *statusLabelString = [NSMutableString stringWithFormat:@"Arithmetic answer %@. Score %@ by %ld!",
+                                                  [eventScore outcome] == ARITHMETIC_CORRECT ? @"correct" : @"incorrect",
+                                                  [eventScore score] > 0 ? @"up" : @"down",
+                                                  labs([eventScore score])];
+            [self renderGameplayStatusLabelWith:statusLabelString];
+            [self renderScoreLabel:[eventScore score]];
+            
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                // Generate Score
-                TLEventScore *eventScore = [_outcomeHandler getRoundScore:[TLEventInput forArithmeticInputEvent:indexPath.row question:_currentQuestion]];
-                
-                // Render status and score
-                NSMutableString *statusLabelString = [NSMutableString stringWithFormat:@"Arithmetic answer %@. Score %@ by %ld!",
-                                                      [eventScore outcome] == ARITHMETIC_CORRECT ? @"correct" : @"incorrect",
-                                                      [eventScore score] > 0 ? @"up" : @"down",
-                                                      labs([eventScore score])];
-                [self renderGameplayStatusLabelWith:statusLabelString];
-                [self renderScoreLabel:[eventScore score]];
-                
                 [self nextRound];
             });
         }
     }
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-    // TODO: Deselect item
 }
 
 #pragma mark – UICollectionViewDelegateFlowLayout
@@ -231,14 +231,32 @@ int rounds = 0;
 // 1
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    Point gridSizeFromOptions = [[self gameOptions] gridQuestionSize];
+    NSInteger itemsPerRow = gridSizeFromOptions.h;
     CGFloat pagewidth = CGRectGetWidth(collectionView.bounds);
+    
     if (collectionView == _gridQuestionCollectionView) {
-        CGFloat availbleWidth = pagewidth - 2*10;
-        return CGSizeMake(floor(availbleWidth/3), floor(availbleWidth/3));
+        
+        CGFloat availbleWidth = pagewidth - ((itemsPerRow - 1) * 2);
+        return CGSizeMake(floor(availbleWidth/itemsPerRow), floor(availbleWidth/itemsPerRow));
         
     } else {
+        
         return CGSizeMake(50, 50);
+        
     }
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    
+    return 2.0;
+    
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    
+    return 2.0;
+    
 }
 
 #pragma mark - 
@@ -263,6 +281,10 @@ int rounds = 0;
     [_gameplayStatusLabel setNumberOfLines:0];
     [_gameplayStatusLabel setNeedsDisplay];
     
+}
+
+- (TLGameOptions *) gameOptions {
+    return [[TLGameOptions alloc] initWithOptions];
 }
 
 @end

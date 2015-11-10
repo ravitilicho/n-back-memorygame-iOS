@@ -12,7 +12,7 @@
 
 -(NSString *)questionString {
     
-    return [NSString stringWithFormat:@"%ld %@ %ld", (long)_operand1, @"+", (long)_operand2];
+    return [NSString stringWithFormat:@"%ld%@%ld", (long)_operand1, @"+", (long)_operand2];
 }
 
 - (instancetype)initWithOperands:(NSInteger)operand1 operand2: (NSInteger)operand2 {
