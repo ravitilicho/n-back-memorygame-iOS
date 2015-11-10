@@ -11,7 +11,6 @@
 
 @interface ViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
-@property (weak, nonatomic) IBOutlet UILabel *arithmeticQuestionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *gridQuestionCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *arithmeticAnswersCollectionView;
@@ -62,7 +61,6 @@ int rounds = 0;
     _currentQuestion = [[self questionEngine] getNextQuestion];
     [_outcomeHandler registerQuestion:_currentQuestion];
     
-    [self renderScoreLabel:0];
     [_gridQuestionCollectionView reloadData];
     [_arithmeticAnswersCollectionView reloadData];
     [_skipRoundButton setEnabled:[_outcomeHandler canStartNBackRound]];
@@ -70,7 +68,7 @@ int rounds = 0;
     rounds++;
     
     if (![_outcomeHandler canStartNBackRound]) {
-        // Wait for 3 seconds and go to next round
+        // Show current round for 3 seconds and go to next round
         double delayInSeconds = 3.0;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -91,12 +89,6 @@ int rounds = 0;
         _questionEngine = [QuestionsEngine new];
     }
     return _questionEngine;
-}
-
-- (void)renderArithmeticQuestionLabel {
-    NSString *arithmeticQuestion = [NSString stringWithFormat:@"%@ = ?", [[_currentQuestion arithmeticQuestion] questionString]];
-    [_arithmeticQuestionLabel setText:arithmeticQuestion];
-    [_arithmeticQuestionLabel setNeedsDisplay];
 }
 
 // Adds the event score to the total score and renders it
@@ -130,11 +122,15 @@ int rounds = 0;
     if (collectionView == _gridQuestionCollectionView) {
         
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GridQuestionCell" forIndexPath:indexPath];
+        [cell.contentView.layer setBorderColor:[UIColorFromRGB(0xD783FF) CGColor]];
+        [cell.contentView.layer setBorderWidth:0.0];
+        
         UILabel *label = (UILabel *)[[cell contentView] viewWithTag:1];
         
         if (indexPath.row == _currentQuestion.gridAnswer) {
             
             cell.contentView.backgroundColor = UIColorFromRGB(0xFEFB00);
+            
             NSString *arithmeticQuestion = [NSString stringWithFormat:@"%@ = ?", [[_currentQuestion arithmeticQuestion] questionString]];
             [label setText:arithmeticQuestion];
             [label setNeedsDisplay];
@@ -151,6 +147,21 @@ int rounds = 0;
     } else { // if (collectionView == _arithmeticAnswersCollectionView)
         
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ArithmeticAnswerCell" forIndexPath:indexPath];
+        [cell.contentView.layer setBorderColor:[UIColorFromRGB(0xD783FF) CGColor]];
+        [cell.contentView.layer setBorderWidth:0.0];
+        
+        // Round the cell corners
+        UIView *roundedCornersView=[[UIView alloc]initWithFrame:cell.frame];
+        roundedCornersView.backgroundColor=UIColorFromRGB(0xFFCC66);
+        UIBezierPath *maskpath=[UIBezierPath bezierPathWithRoundedRect:roundedCornersView.bounds byRoundingCorners:UIRectCornerBottomLeft|UIRectCornerBottomRight|UIRectCornerTopLeft|UIRectCornerTopRight cornerRadii:CGSizeMake(10.0,10.0)];
+        CAShapeLayer *maskLayer=[CAShapeLayer layer];
+        maskLayer.frame=roundedCornersView.bounds;
+        maskLayer.path=maskpath.CGPath;
+        roundedCornersView.layer.mask=maskLayer;
+        cell.backgroundView=roundedCornersView;
+        [cell setBackgroundColor:[UIColor clearColor]];
+        
+        // Label cell with answer options
         UILabel *label = (UILabel *)[[cell contentView] viewWithTag:1];
         [label setText:[NSString stringWithFormat:@"%@", [_currentQuestion arithmeticAnswerOptions][indexPath.row]]];
         
@@ -171,9 +182,7 @@ int rounds = 0;
         // Listen to tap on cell only if current grid question is not answered already
         if ((collectionView == _gridQuestionCollectionView) && ![_outcomeHandler isCurrentRoundGridQuestionAnswered]) {
             
-            // Change Background color
-            // TODO: Doesn't work, fix it! Animate later
-            [cell setBackgroundColor:UIColorFromRGB(0xD783FF)];
+            [cell.contentView.layer setBorderWidth:3.0];
             
             // Generate Score
             TLEventScore *eventScore = [_outcomeHandler getRoundScore:[TLEventInput forColorGridInputEvent:indexPath.row question:_currentQuestion]];
@@ -188,39 +197,31 @@ int rounds = 0;
             
             
             // Revert background color
-            double delayInSeconds = 0.5;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self nextRound];
-            });
-            
-            [cell setBackgroundColor:UIColorFromRGB(0x76D5FF)];
+            [self nextRound];
             
             // Listen to tap on cell only if current grid question is not answered already
         } else if (collectionView == _arithmeticAnswersCollectionView && ![_outcomeHandler isCurrentRoundArithmeticQuestionAnswered]) {
             
-            // Generate Score
-            TLEventScore *eventScore = [_outcomeHandler getRoundScore:[TLEventInput forArithmeticInputEvent:indexPath.row question:_currentQuestion]];
+            [cell.contentView.layer setBorderWidth:2];
             
-            // Render status and score
-            NSMutableString *statusLabelString = [NSMutableString stringWithFormat:@"Arithmetic answer %@. Score %@ by %ld!",
-                                                  [eventScore outcome] == ARITHMETIC_CORRECT ? @"correct" : @"incorrect",
-                                                  [eventScore score] > 0 ? @"up" : @"down",
-                                                  labs([eventScore score])];
-            [self renderGameplayStatusLabelWith:statusLabelString];
-            [self renderScoreLabel:[eventScore score]];
-
-            
-            
-            double delayInSeconds = 0.5;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                // Generate Score
+                TLEventScore *eventScore = [_outcomeHandler getRoundScore:[TLEventInput forArithmeticInputEvent:indexPath.row question:_currentQuestion]];
+                
+                // Render status and score
+                NSMutableString *statusLabelString = [NSMutableString stringWithFormat:@"Arithmetic answer %@. Score %@ by %ld!",
+                                                      [eventScore outcome] == ARITHMETIC_CORRECT ? @"correct" : @"incorrect",
+                                                      [eventScore score] > 0 ? @"up" : @"down",
+                                                      labs([eventScore score])];
+                [self renderGameplayStatusLabelWith:statusLabelString];
+                [self renderScoreLabel:[eventScore score]];
+                
                 [self nextRound];
             });
-            
         }
     }
 }
+
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     // TODO: Deselect item
 }
@@ -252,13 +253,7 @@ int rounds = 0;
     [self renderGameplayStatusLabelWith:roundSkipString];
     [self renderScoreLabel:[eventScore score]];
     
-    double delayInSeconds = 0.5;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self nextRound];
-    });
-    
-    [_skipRoundButton setEnabled:[_outcomeHandler canStartNBackRound]];
+    [self nextRound];
 
 }
 
