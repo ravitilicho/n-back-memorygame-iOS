@@ -16,6 +16,7 @@
 - (NSInteger) nBackCategory;
 - (BOOL) isMaxNBackCategory:(NSInteger)category;
 - (NSInteger) minNBackCategory;
+- (NSInteger) maxNBackCategory;
 - (void) setNBackCategory:(NSInteger)category;
 
 - (Point) gridQuestionSize;

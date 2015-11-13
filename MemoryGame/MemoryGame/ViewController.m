@@ -18,11 +18,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *skipRoundButton;
 @property (weak, nonatomic) IBOutlet UILabel *gameplayStatusLabel;
 
+@property (nonatomic) NSMutableArray *currentRoundScores;
 @property (nonatomic) QuestionsEngine *questionEngine;
 @property (nonatomic) TLQuestion *currentQuestion;
 @property (nonatomic) TLGameOutcomeHandler *outcomeHandler;
 
-- (void)renderScoreLabel:(NSInteger)score;
+- (void)renderScoreLabel;
 - (void)renderGameplayStatusLabelWith:(NSString *)text;
 
 @end
@@ -59,7 +60,7 @@ int rounds = 0;
         
     }
     
-    [self renderScoreLabel:0];
+    [self renderScoreLabel];
     _currentQuestion = [[self questionEngine] getNextQuestion];
     [_outcomeHandler registerQuestion:_currentQuestion];
     
@@ -100,7 +101,7 @@ int rounds = 0;
 }
 
 // Adds the event score to the total score and renders it
-- (void)renderScoreLabel:(NSInteger)score {
+- (void)renderScoreLabel {
     
     NSString *scoreString = [NSString stringWithFormat:@"Score: %ld", [_outcomeHandler gameTotalScore]];
     [_scoreLabel setText:scoreString];
@@ -198,13 +199,10 @@ int rounds = 0;
             // Generate Score
             TLEventScore *eventScore = [_outcomeHandler getRoundScore:[TLEventInput forColorGridInputEvent:indexPath.row question:_currentQuestion]];
             
+            [self currentRoundScores][0] = eventScore;
+            
             // Render status and score
-            NSMutableString *statusLabelString = [NSMutableString stringWithFormat:@"Grid answer %@. Score %@ by %ld!",
-                                            [eventScore outcome] == COLOR_GRID_CORRECT ? @"correct" : @"incorrect",
-                                            [eventScore score] > 0 ? @"up" : @"down",
-                                            labs([eventScore score])];
-            [self renderGameplayStatusLabelWith:statusLabelString];
-            [self renderScoreLabel:[eventScore score]];
+            [self renderRoundScore];
             
             [self nextRound];
             
@@ -216,15 +214,11 @@ int rounds = 0;
             // Generate Score
             TLEventScore *eventScore = [_outcomeHandler getRoundScore:[TLEventInput forArithmeticInputEvent:indexPath.row question:_currentQuestion]];
             
-            // Render status and score
-            NSMutableString *statusLabelString = [NSMutableString stringWithFormat:@"Arithmetic answer %@. Score %@ by %ld!",
-                                                  [eventScore outcome] == ARITHMETIC_CORRECT ? @"correct" : @"incorrect",
-                                                  [eventScore score] > 0 ? @"up" : @"down",
-                                                  labs([eventScore score])];
-            [self renderGameplayStatusLabelWith:statusLabelString];
-            [self renderScoreLabel:[eventScore score]];
+            [self currentRoundScores][1] = eventScore;
             
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self renderRoundScore];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self nextRound];
             });
         }
@@ -272,7 +266,7 @@ int rounds = 0;
     NSString *roundSkipString = [NSString stringWithFormat:@"Round skipped. Score down by %ld", labs([eventScore score])];
     // Update Score label
     [self renderGameplayStatusLabelWith:roundSkipString];
-    [self renderScoreLabel:[eventScore score]];
+    [self renderScoreLabel];
     
     [self nextRound];
 
@@ -305,7 +299,7 @@ int rounds = 0;
     
     [_outcomeHandler goToNextLevel];
     
-    [_gameplayStatusLabel setText:[NSString stringWithFormat:@"You'll need to play %ld - back %@ now!",
+    [_gameplayStatusLabel setText:[NSString stringWithFormat:@"You're going to play %ld-back on %@ grid now!",
                                    (long)[[self gameOptions] nBackCategory],
                                    [NSString stringWithFormat:@"%dX%d", [[self gameOptions] gridQuestionSize].h, [[self gameOptions] gridQuestionSize].h ]]];
     rounds = 0;
@@ -317,6 +311,10 @@ int rounds = 0;
 }
 
 - (void) continuePlayingCurrentLevel {
+
+    rounds = 0;
+    
+    [self renderGameplayStatusLabelWith:[NSString stringWithFormat:@"Note that you'll need to start memorizing the coming %ld rounds and start answering after that", [[self gameOptions] nBackCategory]]];
     
     [_outcomeHandler continueCurrentLevel];
     
@@ -335,7 +333,7 @@ int rounds = 0;
                          handler:^(UIAlertAction * action)
                          {
                              [self goToNextLevel];
-                             [self handleRound];
+                             [self performSelector:@selector(handleRound) withObject:nil afterDelay:3];
 
                              [view dismissViewControllerAnimated:YES completion:^{
                              }];
@@ -347,7 +345,10 @@ int rounds = 0;
                              style:UIAlertActionStyleDefault
                              handler:^(UIAlertAction * action)
                              {
+                                 
                                  [self continuePlayingCurrentLevel];
+                                 [self performSelector:@selector(handleRound) withObject:nil afterDelay:3];
+
                                  [view dismissViewControllerAnimated:YES completion:nil];
                                  
                              }];
@@ -356,6 +357,29 @@ int rounds = 0;
     [view addAction:ok];
     [view addAction:cancel];
     [self presentViewController:view animated:YES completion:nil];
+}
+
+- (NSMutableArray *) currentRoundScores {
+    
+    if (_currentRoundScores == nil) {
+        
+        _currentRoundScores = [[NSMutableArray alloc] initWithCapacity:2];
+        
+    }
+    
+    return _currentRoundScores;
+}
+
+- (void) renderRoundScore {
+    
+    if ([_outcomeHandler canGoToNextRound]) {
+        
+        NSString *roundScoreString = [NSString stringWithFormat:@"Score: %ld for Arithmetic, %ld for Grid", [_currentRoundScores[0] score], [_currentRoundScores[1] score]];
+        
+        [self renderGameplayStatusLabelWith:roundScoreString];
+        [self renderScoreLabel];
+    }
+    
 }
 
 @end

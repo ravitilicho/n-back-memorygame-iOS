@@ -18,6 +18,10 @@
 
 @implementation TLGameLevelFlowHandler
 
+const NSInteger startingScore = 50;
+const NSInteger scoreOffsetWhenContinuingCurrentLevel = 100;
+const NSInteger scoreOffsetWhenMovingToNextLevel = 100;
+
 - (instancetype) initWithOutcomeHandler:(TLGameOutcomeHandler *)outcomeHandler {
     
     self = [super init];
@@ -25,8 +29,8 @@
     if (self != nil) {
         
         self.outcomeHandler = outcomeHandler;
-//        _minScoreForNextLevelEligibility = 300;
-        _minScoreForNextLevelEligibility = 50;
+
+        _minScoreForNextLevelEligibility = startingScore;
         
     }
     
@@ -45,7 +49,7 @@
     if ([self eligibleForNextLevel]) {
         
         // Update min score limit to higher value, to enable user play current level for some more time
-        _minScoreForNextLevelEligibility += 100;
+        _minScoreForNextLevelEligibility += scoreOffsetWhenContinuingCurrentLevel;
         
     }
     
@@ -55,7 +59,7 @@
     
     if ([self eligibleForNextLevel]) {
         
-        _minScoreForNextLevelEligibility += 100;
+        _minScoreForNextLevelEligibility += scoreOffsetWhenMovingToNextLevel;
         
         TLGameOptions *gameOptions = [self gameOptions];
         
@@ -123,6 +127,12 @@
 - (TLGameOptions *) gameOptions {
     
     return [[TLGameOptions alloc] initWithOptions];
+    
+}
+
+- (NSInteger) startingScore {
+    
+    return 50 * [[self gameOptions] gridQuestionSize].h + (100 * ([[self gameOptions] maxNBackCategory] - [[self gameOptions] nBackCategory] + 1));
     
 }
 

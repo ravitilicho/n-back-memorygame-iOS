@@ -63,6 +63,12 @@ NSInteger MAX_NBACK_CATEGORY = 6;
     
 }
 
+- (NSInteger) maxNBackCategory  {
+    
+    return MAX_NBACK_CATEGORY;
+    
+}
+
 - (BOOL) isMaxNBackCategory:(NSInteger)category {
     
     return category >= MAX_NBACK_CATEGORY;

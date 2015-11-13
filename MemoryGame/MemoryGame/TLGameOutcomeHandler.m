@@ -158,6 +158,8 @@
 
 - (void) continueCurrentLevel {
     
+    // After a popup, user most likely get distracted and can't remember the answers so emptying the n-back stack will enable him to start remembering from now
+    [_roundStates makeEmpty];
     [[self gameLevelFlowHandler] continueCurrentLevel];
     
 }
