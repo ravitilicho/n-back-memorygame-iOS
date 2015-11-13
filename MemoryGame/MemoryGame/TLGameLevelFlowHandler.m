@@ -25,7 +25,8 @@
     if (self != nil) {
         
         self.outcomeHandler = outcomeHandler;
-        _minScoreForNextLevelEligibility = 300;
+//        _minScoreForNextLevelEligibility = 300;
+        _minScoreForNextLevelEligibility = 50;
         
     }
     
@@ -44,7 +45,7 @@
     if ([self eligibleForNextLevel]) {
         
         // Update min score limit to higher value, to enable user play current level for some more time
-        _minScoreForNextLevelEligibility += 600;
+        _minScoreForNextLevelEligibility += 100;
         
     }
     
@@ -53,6 +54,8 @@
 - (void) updateGameOptionsForNextLevel {
     
     if ([self eligibleForNextLevel]) {
+        
+        _minScoreForNextLevelEligibility += 100;
         
         TLGameOptions *gameOptions = [self gameOptions];
         

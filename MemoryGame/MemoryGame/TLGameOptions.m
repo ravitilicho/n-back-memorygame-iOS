@@ -35,17 +35,17 @@ NSInteger MAX_NBACK_CATEGORY = 6;
     self = [TLGameOptions new];
     
     // TODO: Comment out after Options UI screen is in
-//    if (![self savedOptionsExist]) {
+    if (![self savedOptionsExist]) {
     
-        Point defaultGridSize = {6, 6};
+        Point defaultGridSize = {3, 3};
         
         [self setNBackCategory:1];
         [self setGridQuestionSize:defaultGridSize];
         [self setGameplayMode:@"ENDLESS"];
         
-        [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:optionsInitializationStatus];
+        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:optionsInitializationStatus];
         
-//    }
+    }
     
     return self;
 }

@@ -10,6 +10,7 @@
 #import "TLEventInput.h"
 #import "TLEventScore.h"
 #import "TLGameScoreGenerator.h"
+#import "TLGameLevelFlowHandler.h"
 #import "NBackList.h"
 #import "Enums.h"
 
@@ -17,6 +18,7 @@
 
 @property (nonatomic) NSInteger gameTotalScore;
 @property(nonatomic) TLGameScoreGenerator *scoreGenerator;
+@property (nonatomic) TLGameLevelFlowHandler *gameLevelFlowHandler;
 @property(nonatomic) NBackList *roundStates;
 
 - (TLEventOutcome) outcome:(TLEventInput *)input;
@@ -111,11 +113,15 @@
 }
 
 - (BOOL) canStartNBackRound {
+    
     return [_roundStates isNBackFull];
+    
 }
 
 - (BOOL) canGoToNextRound {
+    
     return ![self canStartNBackRound] || [_roundStates isCurrentQuestionFullyAnswered];
+    
 }
 
 - (void)updateCurrentRoundState:(TLEventInput *)input {
@@ -137,16 +143,52 @@
     
 }
 
+- (BOOL) isEligibleForNextLevel {
+    
+    return [[self gameLevelFlowHandler] eligibleForNextLevel];
+    
+}
+
+- (void) goToNextLevel {
+    
+    [_roundStates makeEmpty];
+    [[self gameLevelFlowHandler] updateGameOptionsForNextLevel];
+    
+}
+
+- (void) continueCurrentLevel {
+    
+    [[self gameLevelFlowHandler] continueCurrentLevel];
+    
+}
+
 - (BOOL) isCurrentRoundArithmeticQuestionAnswered {
+    
     return [_roundStates isCurrentArithmeticQuestionAnswered];
+    
 }
 
 - (BOOL) isCurrentRoundGridQuestionAnswered {
+    
     return [_roundStates isCurrentGridQuestionAnswered];
+    
 }
 
 - (NSInteger) gameTotalScore {
+    
     return _gameTotalScore;
+    
+}
+
+- (TLGameLevelFlowHandler *) gameLevelFlowHandler {
+    
+    if (_gameLevelFlowHandler == nil) {
+        
+        _gameLevelFlowHandler = [[TLGameLevelFlowHandler alloc] initWithOutcomeHandler:self];
+        
+    }
+    
+    return _gameLevelFlowHandler;
 }
 
 

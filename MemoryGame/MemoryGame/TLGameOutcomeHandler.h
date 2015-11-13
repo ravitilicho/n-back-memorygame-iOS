@@ -17,11 +17,16 @@
 
 - (BOOL) isCurrentRoundArithmeticQuestionAnswered;
 - (BOOL) isCurrentRoundGridQuestionAnswered;
-
 - (BOOL)canStartNBackRound;
 
 // YES when user answered both arithmetic and grid question
 - (BOOL) canGoToNextRound;
+
+// Game Level related
+- (BOOL) isEligibleForNextLevel;
+- (void) goToNextLevel;
+- (void) continueCurrentLevel;
+
 
 // Invoked when some game options change
 - (void)reset;

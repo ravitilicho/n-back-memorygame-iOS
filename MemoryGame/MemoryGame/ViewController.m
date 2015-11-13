@@ -41,7 +41,6 @@ int rounds = 0;
     
     _outcomeHandler = [[self questionEngine] outcomeHandler];
     
-    [self renderGameplayStatusLabelWith:@"Remember highlighted grid position and arithmetic question..."];
     [self handleRound];
     
 }
@@ -50,7 +49,11 @@ int rounds = 0;
 
 - (void)handleRound {
     
-    if (rounds == [[self gameOptions] nBackCategory]) {
+    if (rounds == 0) {
+        
+        [self renderGameplayStatusLabelWith:@"Remember highlighted grid position and arithmetic question..."];
+        
+    } else if (rounds == [[self gameOptions] nBackCategory]) {
         
         [self renderGameplayStatusLabelWith:@"Tap on the previous rounds' highlighted grid and arithmetic question answer"];
         
@@ -78,8 +81,14 @@ int rounds = 0;
 }
 
 - (void)nextRound {
+    
     if ([_outcomeHandler canGoToNextRound]) {
+        
+        // Check for next level eligibility first
+        [self handleGameLevel];
+        
         [self handleRound];
+        
     }
 }
 
@@ -279,6 +288,74 @@ int rounds = 0;
 
 - (TLGameOptions *) gameOptions {
     return [[TLGameOptions alloc] initWithOptions];
+}
+
+- (void) handleGameLevel {
+    
+    if ([_outcomeHandler isEligibleForNextLevel]) {
+        
+        // Show popup for user's choice
+        [self showNextLevelChoiceAlertActionDialog];
+        
+    }
+    
+}
+
+- (void) goToNextLevel {
+    
+    [_outcomeHandler goToNextLevel];
+    
+    [_gameplayStatusLabel setText:[NSString stringWithFormat:@"You'll need to play %ld - back %@ now!",
+                                   (long)[[self gameOptions] nBackCategory],
+                                   [NSString stringWithFormat:@"%dX%d", [[self gameOptions] gridQuestionSize].h, [[self gameOptions] gridQuestionSize].h ]]];
+    rounds = 0;
+    
+    // Update necessary components
+    [_gridQuestionCollectionView reloadData];
+    [_arithmeticAnswersCollectionView reloadData];
+    
+}
+
+- (void) continuePlayingCurrentLevel {
+    
+    [_outcomeHandler continueCurrentLevel];
+    
+}
+
+- (void) showNextLevelChoiceAlertActionDialog {
+    
+    UIAlertController * view=   [UIAlertController
+                                 alertControllerWithTitle:@"Eligible for next level"
+                                 message:@"You're now eligible for playing next level!"
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"Take me to next level"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [self goToNextLevel];
+                             [self handleRound];
+
+                             [view dismissViewControllerAnimated:YES completion:^{
+                             }];
+                             
+                         }];
+    
+    UIAlertAction* cancel = [UIAlertAction
+                             actionWithTitle:@"Let me play current level"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [self continuePlayingCurrentLevel];
+                                 [view dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
+    
+    
+    [view addAction:ok];
+    [view addAction:cancel];
+    [self presentViewController:view animated:YES completion:nil];
 }
 
 @end
