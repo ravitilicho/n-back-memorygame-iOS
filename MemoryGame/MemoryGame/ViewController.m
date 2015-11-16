@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "QuestionsEngine.h"
 #import "TLGameOptions.h"
+#import "ModeOptions.h"
 
 @interface ViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -18,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *skipRoundButton;
 @property (weak, nonatomic) IBOutlet UILabel *gameplayStatusLabel;
 
+@property (nonatomic) ModeOptions *modeOptions;
 @property (nonatomic) NSMutableArray *currentRoundScores;
 @property (nonatomic) QuestionsEngine *questionEngine;
 @property (nonatomic) TLQuestion *currentQuestion;
@@ -38,9 +40,9 @@ int rounds = 0;
     
     [_skipRoundButton addTarget:self
                          action:@selector(onClickSkipRoundButton:)
-       forControlEvents:UIControlEventTouchUpInside];
+               forControlEvents:UIControlEventTouchUpInside];
     
-    _outcomeHandler = [[self questionEngine] outcomeHandler];
+    _outcomeHandler = [[TLGameOutcomeHandler alloc] initWithModeOptions:_modeOptions viewController:self callback:@selector(updateTimeRemaining)];
     
     [self handleRound];
     
@@ -94,9 +96,13 @@ int rounds = 0;
 }
 
 - (QuestionsEngine *)questionEngine {
+    
     if (_questionEngine == nil) {
-        _questionEngine = [QuestionsEngine new];
+        
+        _questionEngine = [[QuestionsEngine alloc] initWithOutcomeHandler:[self outcomeHandler]];
+        
     }
+    
     return _questionEngine;
 }
 
@@ -201,10 +207,19 @@ int rounds = 0;
             
             [self currentRoundScores][0] = eventScore;
             
+            if (![_outcomeHandler canGoToNextRound]) {
+                
+                [self renderGameplayStatusLabelWith:@"Answer arithmetic question now by tapping on one of answer cells"];
+                
+            }
+
+            
             // Render status and score
             [self renderRoundScore];
             
-            [self nextRound];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self nextRound];
+            });
             
             // Listen to tap on cell only if current grid question is not answered already
         } else if (collectionView == _arithmeticAnswersCollectionView && ![_outcomeHandler isCurrentRoundArithmeticQuestionAnswered]) {
@@ -215,6 +230,12 @@ int rounds = 0;
             TLEventScore *eventScore = [_outcomeHandler getRoundScore:[TLEventInput forArithmeticInputEvent:indexPath.row question:_currentQuestion]];
             
             [self currentRoundScores][1] = eventScore;
+            
+            if (![_outcomeHandler canGoToNextRound]) {
+                
+                [self renderGameplayStatusLabelWith:@"Answer grid question now by tapping on the right grid cell"];
+                
+            }
             
             [self renderRoundScore];
             
@@ -304,10 +325,6 @@ int rounds = 0;
                                    [NSString stringWithFormat:@"%dX%d", [[self gameOptions] gridQuestionSize].h, [[self gameOptions] gridQuestionSize].h ]]];
     rounds = 0;
     
-    // Update necessary components
-    [_gridQuestionCollectionView reloadData];
-    [_arithmeticAnswersCollectionView reloadData];
-    
 }
 
 - (void) continuePlayingCurrentLevel {
@@ -380,6 +397,10 @@ int rounds = 0;
         [self renderScoreLabel];
     }
     
+}
+
+- (void) updateTimeRemaining {
+    // TODO: Fill update time remaining here
 }
 
 @end

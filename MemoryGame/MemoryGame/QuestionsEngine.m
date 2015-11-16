@@ -20,6 +20,20 @@
 
 static NSInteger questionId = 1;
 
+- (instancetype) initWithOutcomeHandler:(TLGameOutcomeHandler *)outcomeHandler {
+    
+    self = [super init];
+    
+    if (self != nil) {
+        
+        _outcomeHandler = outcomeHandler;
+        
+    }
+    
+    return self;
+    
+}
+
 - (TLQuestion *)getNextQuestion {
     
     NSInteger questionId = [self generateNextQuestionId];
@@ -37,16 +51,11 @@ static NSInteger questionId = 1;
     return question;
 }
 
-- (TLGameOutcomeHandler *)outcomeHandler {
-    if (_outcomeHandler == nil) {
-        _outcomeHandler = [TLGameOutcomeHandler new];
-    }
-    return _outcomeHandler;
-}
-
 - (void)reset {
+    
     questionId = 1;
     [_outcomeHandler reset];
+    
 }
 
 - (NSInteger) generateNextQuestionId {

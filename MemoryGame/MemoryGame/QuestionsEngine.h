@@ -14,6 +14,8 @@
 
 @property(nonatomic) TLGameOutcomeHandler *outcomeHandler;
 
+- (instancetype) initWithOutcomeHandler:(TLGameOutcomeHandler *)outcomeHandler;
+
 - (TLQuestion *)getNextQuestion;
 
 // Invoked when some of game options change

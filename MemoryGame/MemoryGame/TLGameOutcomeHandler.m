@@ -11,14 +11,24 @@
 #import "TLEventScore.h"
 #import "TLGameScoreGenerator.h"
 #import "TLGameLevelFlowHandler.h"
+#import "TLEndlessModeHandler.h"
+#import "TLSurvivalModeHandler.h"
+#import "ModeHandlerProtocol.h"
 #import "NBackList.h"
 #import "Enums.h"
 
 @interface TLGameOutcomeHandler ()
 
+@property (nonatomic) ModeOptions *modeOptions;
+@property (nonatomic) ViewController *viewController;
+@property (nonatomic) SEL callback;
+
 @property (nonatomic) NSInteger gameTotalScore;
 @property(nonatomic) TLGameScoreGenerator *scoreGenerator;
-@property (nonatomic) TLGameLevelFlowHandler *gameLevelFlowHandler;
+
+@property (nonatomic) id<TLModeHandlerProtocol> modeHandler;
+
+//@property (nonatomic) TLGameLevelFlowHandler *gameLevelFlowHandler;
 @property(nonatomic) NBackList *roundStates;
 
 - (TLEventOutcome) outcome:(TLEventInput *)input;
@@ -27,6 +37,21 @@
 @end
 
 @implementation TLGameOutcomeHandler
+
+- (instancetype) initWithModeOptions:(ModeOptions *)modeOptions viewController:(ViewController *)viewController callback:(SEL)callback{
+    
+    self = [super init];
+    
+    if (self != nil) {
+        
+        _modeOptions = modeOptions;
+        _viewController = viewController;
+        _callback = callback;
+        
+    }
+    
+    return self;
+}
 
 - (void)registerQuestion:(TLQuestion *)question {
     
@@ -95,21 +120,27 @@
 }
 
 - (NBackList *)roundStates {
+    
     if (_roundStates == nil) {
         _roundStates = [NBackList new];
     }
     return _roundStates;
+    
 }
 
 - (void)reset {
+    
     [_roundStates makeEmpty];
+    
 }
 
 - (TLGameScoreGenerator *)scoreGenerator {
+    
     if (_scoreGenerator == nil) {
         _scoreGenerator = [TLGameScoreGenerator new];
     }
     return _scoreGenerator;
+    
 }
 
 - (BOOL) canStartNBackRound {
@@ -182,15 +213,30 @@
     
 }
 
-- (TLGameLevelFlowHandler *) gameLevelFlowHandler {
+- (id<TLModeHandlerProtocol>) modeHandler {
     
-    if (_gameLevelFlowHandler == nil) {
+    if (_modeHandler == nil) {
         
-        _gameLevelFlowHandler = [[TLGameLevelFlowHandler alloc] initWithOutcomeHandler:self];
+        if ([[_modeOptions gameplayMode] isEqualToString:@"ENDLESS"]) {
+            
+            _modeHandler = [[TLEndlessModeHandler alloc] initWithOutcomeHandler:self];
+            
+        } else if ([[_modeOptions gameplayMode] isEqualToString:@"ENDLESS"]) {
+            
+            _modeHandler = [[TLSurvivalModeHandler alloc] initWithOutcomeHandler:self target:_viewController callback:_callback];
+            
+        }
         
     }
     
-    return _gameLevelFlowHandler;
+    return _modeHandler;
+    
+}
+
+- (TLGameLevelFlowHandler *) gameLevelFlowHandler {
+    
+    return [[self modeHandler] gameLevelFlowHandler];
+    
 }
 
 

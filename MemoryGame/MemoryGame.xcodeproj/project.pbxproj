@@ -22,6 +22,9 @@
 		5022AC541BD120DA00047B24 /* TLGameScoreGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5022AC531BD120DA00047B24 /* TLGameScoreGenerator.m */; };
 		50290FDF1BE9CADA004BF002 /* TLQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 50290FDE1BE9CADA004BF002 /* TLQuestion.m */; };
 		50290FE21BE9CB74004BF002 /* TLGridQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 50290FE11BE9CB74004BF002 /* TLGridQuestion.m */; };
+		5062AF1F1BF9F7A6002E7D61 /* TLEndlessModeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062AF1E1BF9F7A6002E7D61 /* TLEndlessModeHandler.m */; settings = {ASSET_TAGS = (); }; };
+		5062AF221BF9FAF3002E7D61 /* TLSurvivalModeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062AF211BF9FAF3002E7D61 /* TLSurvivalModeHandler.m */; settings = {ASSET_TAGS = (); }; };
+		5062AF251BFA03B0002E7D61 /* ModeOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5062AF241BFA03B0002E7D61 /* ModeOptions.m */; settings = {ASSET_TAGS = (); }; };
 		508805E91BF22C6A0014142D /* TLGameLevelFlowHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 508805E81BF22C6A0014142D /* TLGameLevelFlowHandler.m */; settings = {ASSET_TAGS = (); }; };
 		509EAD5A1BD12FB800611136 /* TLEventInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 509EAD591BD12FB800611136 /* TLEventInput.m */; };
 		509EAD5D1BD137D800611136 /* TLEventScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 509EAD5C1BD137D800611136 /* TLEventScore.m */; };
@@ -80,6 +83,14 @@
 		50290FDE1BE9CADA004BF002 /* TLQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLQuestion.m; sourceTree = "<group>"; };
 		50290FE01BE9CB74004BF002 /* TLGridQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLGridQuestion.h; sourceTree = "<group>"; };
 		50290FE11BE9CB74004BF002 /* TLGridQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLGridQuestion.m; sourceTree = "<group>"; };
+		5062AF1B1BF9E3CA002E7D61 /* ModeHandlerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModeHandlerProtocol.h; sourceTree = "<group>"; };
+		5062AF1C1BF9E47E002E7D61 /* CallbackProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallbackProtocol.h; sourceTree = "<group>"; };
+		5062AF1D1BF9F7A6002E7D61 /* TLEndlessModeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLEndlessModeHandler.h; sourceTree = "<group>"; };
+		5062AF1E1BF9F7A6002E7D61 /* TLEndlessModeHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLEndlessModeHandler.m; sourceTree = "<group>"; };
+		5062AF201BF9FAF3002E7D61 /* TLSurvivalModeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLSurvivalModeHandler.h; sourceTree = "<group>"; };
+		5062AF211BF9FAF3002E7D61 /* TLSurvivalModeHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLSurvivalModeHandler.m; sourceTree = "<group>"; };
+		5062AF231BFA03B0002E7D61 /* ModeOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModeOptions.h; path = ../ModeOptions.h; sourceTree = "<group>"; };
+		5062AF241BFA03B0002E7D61 /* ModeOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModeOptions.m; path = ../ModeOptions.m; sourceTree = "<group>"; };
 		508805E71BF22C6A0014142D /* TLGameLevelFlowHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLGameLevelFlowHandler.h; sourceTree = "<group>"; };
 		508805E81BF22C6A0014142D /* TLGameLevelFlowHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLGameLevelFlowHandler.m; sourceTree = "<group>"; };
 		509EAD581BD12FB800611136 /* TLEventInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLEventInput.h; sourceTree = "<group>"; };
@@ -149,15 +160,21 @@
 				5022AC141BD0FC7200047B24 /* AppDelegate.m */,
 				5022AC161BD0FC7200047B24 /* ViewController.h */,
 				5022AC171BD0FC7200047B24 /* ViewController.m */,
+				5062AF1D1BF9F7A6002E7D61 /* TLEndlessModeHandler.h */,
+				5062AF1E1BF9F7A6002E7D61 /* TLEndlessModeHandler.m */,
+				5062AF1B1BF9E3CA002E7D61 /* ModeHandlerProtocol.h */,
+				5062AF1C1BF9E47E002E7D61 /* CallbackProtocol.h */,
+				50E7930E1BF1D70F001E6FE7 /* TLGameOptions.h */,
+				50E7930F1BF1D70F001E6FE7 /* TLGameOptions.m */,
+				508805E71BF22C6A0014142D /* TLGameLevelFlowHandler.h */,
+				5062AF201BF9FAF3002E7D61 /* TLSurvivalModeHandler.h */,
+				5062AF211BF9FAF3002E7D61 /* TLSurvivalModeHandler.m */,
+				508805E81BF22C6A0014142D /* TLGameLevelFlowHandler.m */,
 				5022AC191BD0FC7200047B24 /* Main.storyboard */,
 				5022AC1C1BD0FC7200047B24 /* Assets.xcassets */,
 				5022AC1E1BD0FC7200047B24 /* LaunchScreen.storyboard */,
 				5022AC211BD0FC7200047B24 /* Info.plist */,
 				5022AC101BD0FC7200047B24 /* Supporting Files */,
-				50E7930E1BF1D70F001E6FE7 /* TLGameOptions.h */,
-				50E7930F1BF1D70F001E6FE7 /* TLGameOptions.m */,
-				508805E71BF22C6A0014142D /* TLGameLevelFlowHandler.h */,
-				508805E81BF22C6A0014142D /* TLGameLevelFlowHandler.m */,
 			);
 			path = MemoryGame;
 			sourceTree = "<group>";
@@ -220,6 +237,8 @@
 		5022AC481BD0FD2400047B24 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				5062AF231BFA03B0002E7D61 /* ModeOptions.h */,
+				5062AF241BFA03B0002E7D61 /* ModeOptions.m */,
 				5022AC491BD0FD4000047B24 /* TLArithmeticQuestion.h */,
 				5022AC4A1BD0FD4000047B24 /* TLArithmeticQuestion.m */,
 				509EAD581BD12FB800611136 /* TLEventInput.h */,
@@ -368,12 +387,15 @@
 			files = (
 				50E95B521BEDC5FB0047C9EF /* NBackList.m in Sources */,
 				5022AC181BD0FC7200047B24 /* ViewController.m in Sources */,
+				5062AF1F1BF9F7A6002E7D61 /* TLEndlessModeHandler.m in Sources */,
 				5022AC4B1BD0FD4000047B24 /* TLArithmeticQuestion.m in Sources */,
 				50290FDF1BE9CADA004BF002 /* TLQuestion.m in Sources */,
+				5062AF251BFA03B0002E7D61 /* ModeOptions.m in Sources */,
 				5022AC471BD0FCEC00047B24 /* TLArithmeticQuestionGenerator.m in Sources */,
 				5022AC511BD1207700047B24 /* TLGameOutcomeHandler.m in Sources */,
 				50290FE21BE9CB74004BF002 /* TLGridQuestion.m in Sources */,
 				5022AC541BD120DA00047B24 /* TLGameScoreGenerator.m in Sources */,
+				5062AF221BF9FAF3002E7D61 /* TLSurvivalModeHandler.m in Sources */,
 				5022AC4E1BD11A9400047B24 /* TLGridQuestionGenerator.m in Sources */,
 				509EAD5A1BD12FB800611136 /* TLEventInput.m in Sources */,
 				5022AC151BD0FC7200047B24 /* AppDelegate.m in Sources */,

@@ -39,7 +39,7 @@ NSInteger MAX_NBACK_CATEGORY = 6;
     
         Point defaultGridSize = {3, 3};
         
-        [self setNBackCategory:1];
+        [self setNBackCategory:2];
         [self setGridQuestionSize:defaultGridSize];
         [self setGameplayMode:@"ENDLESS"];
         

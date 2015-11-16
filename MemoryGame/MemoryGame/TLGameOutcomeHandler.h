@@ -7,10 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ViewController.h"
 #import "TLEventScore.h"
 #import "TLEventInput.h"
+#import "ModeOptions.h"
 
 @interface TLGameOutcomeHandler : NSObject
+
+- (instancetype) initWithModeOptions:(ModeOptions *)modeOptions viewController:(ViewController *)viewController callback:(SEL)callback;
 
 - (void)registerQuestion:(TLQuestion *)question;
 - (TLEventScore *) getRoundScore:(TLEventInput *)eventInput;
