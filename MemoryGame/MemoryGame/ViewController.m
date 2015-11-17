@@ -22,6 +22,7 @@
 
 @property (nonatomic) ModeOptions *modeOptions;
 @property (nonatomic) NSMutableArray *currentRoundScores;
+@property (nonatomic) NSMutableArray *currentRoundTimeRemainingOffsets;
 @property (nonatomic) QuestionsEngine *questionEngine;
 @property (nonatomic) TLQuestion *currentQuestion;
 @property (nonatomic) TLGameOutcomeHandler *outcomeHandler;
@@ -36,6 +37,7 @@
 
 @implementation ViewController
 
+NSInteger SurvivalModeMaxTimeRemaining = 150;
 int rounds = 0;
 
 - (void)viewDidLoad {
@@ -56,7 +58,9 @@ int rounds = 0;
     _modeOptions = modeOptions;
     [TLGameOptions persist:_modeOptions];
     
-    _outcomeHandler = [[TLGameOutcomeHandler alloc] initWithModeOptions:modeOptions viewController:self callback:@selector(updateTimeRemaining)];
+    _outcomeHandler = [[TLGameOutcomeHandler alloc] initWithModeOptions:modeOptions viewController:self callback:@selector(updateTimeRemainingLabel)];
+    
+    // TODO: Should this be moved to OutcomeHandler alike total score?
     _timeRemaining = 90;
     
     [self handleRound];
@@ -97,7 +101,7 @@ int rounds = 0;
             [self nextRound];
         });
         
-    } else {
+    } else if (rounds == [[self gameOptions] nBackCategory] + 1){
         
         [_outcomeHandler startGame];
         
@@ -147,7 +151,9 @@ int rounds = 0;
         return gridSizeFromOptions.h * gridSizeFromOptions.v;
         
     } else if (collectionView == _arithmeticAnswersCollectionView) {
+        
         return _currentQuestion ? [[_currentQuestion arithmeticAnswerOptions] count] : 10;
+        
     }
     
     return 0;
@@ -213,8 +219,9 @@ int rounds = 0;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    if ([_outcomeHandler canStartNBackRound]) {
+
+    // Listen to taps only when game is not paused or there is some remaining time
+    if ([_outcomeHandler canStartNBackRound] && ![_outcomeHandler isPaused] && ![self isGameOver]) {
         
         UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
 
@@ -233,7 +240,6 @@ int rounds = 0;
                 [self renderGameplayStatusLabelWith:@"Answer arithmetic question now by tapping on one of answer cells"];
                 
             }
-
             
             // Render status and score
             [self renderRoundScore];
@@ -306,8 +312,10 @@ int rounds = 0;
     
     TLEventScore *eventScore = [_outcomeHandler getRoundScore:[TLEventInput forSkipInputEvent:0 question:_currentQuestion]];
     NSString *roundSkipString = [NSString stringWithFormat:@"Round skipped. Score down by %ld", labs([eventScore score])];
+    
     // Update Score label
     [self renderGameplayStatusLabelWith:roundSkipString];
+    [self updateTimeRemaining:[eventScore timeRemainingOffset]];
     [self renderScoreLabel];
     
     [self nextRound];
@@ -323,15 +331,24 @@ int rounds = 0;
 }
 
 - (TLGameOptions *) gameOptions {
+    
     return [[TLGameOptions alloc] initWithOptions];
+    
 }
 
 - (void) handleGameLevel {
     
     if ([_outcomeHandler isEligibleForNextLevel]) {
         
+        [_outcomeHandler pauseGame];
+        
+        // TODO: This shouldn't decrease the time remaining
+        [self updateTimeRemainingLabel];
+        NSLog([NSString stringWithFormat:@"Game is paused. Time remaining: %ld", _timeRemaining]);
+        
         // Show popup for user's choice
-        [self showNextLevelChoiceAlertActionDialog];
+        [self goToNextLevel];
+        [self performSelector:@selector(handleRound) withObject:nil afterDelay:3];
         
     }
     
@@ -408,13 +425,26 @@ int rounds = 0;
     return _currentRoundScores;
 }
 
+- (NSMutableArray *) currentRoundTimeRemainingOffsets {
+    
+    if (_currentRoundTimeRemainingOffsets == nil) {
+        
+        _currentRoundTimeRemainingOffsets = [[NSMutableArray alloc] initWithCapacity:2];
+        
+    }
+    
+    return _currentRoundTimeRemainingOffsets;
+    
+}
+
+// TODO: Choose a sensible name (to accomodate score and time remaining)
 - (void) renderRoundScore {
     
     if ([_outcomeHandler canGoToNextRound]) {
         
         NSString *roundScoreString = [NSString stringWithFormat:@"Score: %ld for Arithmetic, %ld for Grid", [_currentRoundScores[0] score], [_currentRoundScores[1] score]];
         
-        // TODO: Update time remaining here
+        [self updateTimeRemaining:([_currentRoundScores[0] timeRemainingOffset] + [_currentRoundScores[1] timeRemainingOffset])];
         
         [self renderGameplayStatusLabelWith:roundScoreString];
         [self renderScoreLabel];
@@ -422,18 +452,61 @@ int rounds = 0;
     
 }
 
-- (void) updateTimeRemaining {
+- (void) updateTimeRemainingLabel {
     
-    _timeRemaining -= 1;
-    [_timeRemainingLabel setText:[NSString stringWithFormat:@"%02d:%02ld", (int)floorf(_timeRemaining/60), _timeRemaining%60]];
-    [_timeRemainingLabel setNeedsDisplay];
-    
-    if (_timeRemaining <= 0 ) {
+    if ([[_modeOptions gameplayMode] isEqualToString:@"SURVIVAL"]) {
         
-        // TODO: Update UI for Game over here
-        [self renderGameplayStatusLabelWith:@"Time limit exceeded. Game is over!"];
-        [_outcomeHandler stopGame];
+        if ([_outcomeHandler isPaused]) {
+            
+            [_timeRemainingLabel setTextColor:[UIColor orangeColor]];
+            
+        } else {
+            
+            [_timeRemainingLabel setTextColor:[UIColor blackColor]];
+            
+        }
+        
+        NSString *timeRemainingString = [NSString stringWithFormat:@"%02d:%02ld", (int)floorf(_timeRemaining/60), _timeRemaining%60];
+        [_timeRemainingLabel setText:timeRemainingString];
+        [_timeRemainingLabel setNeedsDisplay];
+        
+        NSLog([NSString stringWithFormat:@"Label Time remaining is updated to %@", timeRemainingString ]);
+        
+        _timeRemaining -= 1;
+        
+        if (_timeRemaining <= 0 ) {
+            
+            // TODO: Update UI for Game over here
+            [self renderGameplayStatusLabelWith:@"Time limit exceeded. Game is over!"];
+            [_outcomeHandler stopGame];
+        }
+        
     }
+    
+}
+
+- (void) updateTimeRemaining:(NSInteger)timeRemainingOffset {
+    
+    if ([[_modeOptions gameplayMode] isEqualToString:@"SURVIVAL"]) {
+        
+        if (_timeRemaining + timeRemainingOffset <= SurvivalModeMaxTimeRemaining) {
+            
+            _timeRemaining += timeRemainingOffset;
+            NSLog([NSString stringWithFormat:@"Time remaining updated to: %ld", _timeRemaining] );
+            
+        } else {
+            
+            _timeRemaining = SurvivalModeMaxTimeRemaining;
+            
+        }
+        
+    }
+    
+}
+
+- (BOOL) isGameOver {
+    
+    return [[_modeOptions gameplayMode] isEqualToString:@"SURVIVAL"] && (_timeRemaining <= 0);
     
 }
 

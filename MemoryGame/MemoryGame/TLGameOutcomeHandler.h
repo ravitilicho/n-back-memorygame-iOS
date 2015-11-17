@@ -33,6 +33,7 @@
 - (void) continueCurrentLevel;
 
 - (void) startGame;
+//TODO: Use more sensible name
 - (void) pauseGame;
 - (BOOL) isPaused;
 - (void) stopGame;

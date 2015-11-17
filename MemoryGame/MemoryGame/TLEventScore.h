@@ -13,9 +13,8 @@
 
 @property(nonatomic) TLEventOutcome outcome;
 @property(nonatomic) NSInteger score;
+@property (nonatomic) NSInteger timeRemainingOffset;
 
-- (instancetype) initWithOutcome:(TLEventOutcome)outcome score:(NSInteger)score;
-
-+ (TLEventScore *) fromEventOutcome:(TLEventOutcome)outcome scoresMap:(NSDictionary *)scoresMap;
+- (instancetype) initWithOutcome:(TLEventOutcome)outcome score:(NSInteger)score timeRemaininOffset:(NSInteger)timeRemainingOffset;
 
 @end

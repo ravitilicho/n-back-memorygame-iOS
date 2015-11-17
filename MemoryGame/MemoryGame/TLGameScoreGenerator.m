@@ -18,20 +18,38 @@
 @implementation TLGameScoreGenerator
 
 - (NSDictionary *) scoresDictionary {
+    
     return [[NSDictionary alloc] initWithObjectsAndKeys:
                                 [NSNumber numberWithInt:2], [NSNumber numberWithInt:COLOR_GRID_CORRECT],
-                                [NSNumber numberWithInt:-1], [NSNumber numberWithInt:COLOR_GRID_INCORRECT],
+                                [NSNumber numberWithInt:-2], [NSNumber numberWithInt:COLOR_GRID_INCORRECT],
                                 [NSNumber numberWithInt:4], [NSNumber numberWithInt:ARITHMETIC_CORRECT],
                                 [NSNumber numberWithInt:-1], [NSNumber numberWithInt:ARITHMETIC_INCORRECT],
                                 [NSNumber numberWithInt:-3], [NSNumber numberWithInt:SKIPPED],
                                 nil];
+    
+}
+
+- (NSDictionary *) timeRemainingOffsetDictionary {
+    
+    return [[NSDictionary alloc] initWithObjectsAndKeys:
+            [NSNumber numberWithInt:2], [NSNumber numberWithInt:COLOR_GRID_CORRECT],
+            [NSNumber numberWithInt:-2], [NSNumber numberWithInt:COLOR_GRID_INCORRECT],
+            [NSNumber numberWithInt:4], [NSNumber numberWithInt:ARITHMETIC_CORRECT],
+            [NSNumber numberWithInt:-1], [NSNumber numberWithInt:ARITHMETIC_INCORRECT],
+            [NSNumber numberWithInt:-3], [NSNumber numberWithInt:SKIPPED],
+            nil];
+
 }
 
 - (TLEventScore *) generateScore:(TLEventOutcome)eventOutcome {
+    
     NSNumber *outcomeNumber = [NSNumber numberWithInt:eventOutcome];
     NSInteger score = [(NSNumber *)[self scoresDictionary][outcomeNumber] integerValue];
+    NSInteger timeRemainingOffset = [(NSNumber *)[self timeRemainingOffsetDictionary][outcomeNumber] integerValue];
     
-    return [[TLEventScore alloc] initWithOutcome:eventOutcome score:score];
+    return [[TLEventScore alloc] initWithOutcome:eventOutcome score:score timeRemaininOffset:timeRemainingOffset];
+    
 }
+
 
 @end
