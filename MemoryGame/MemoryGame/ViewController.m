@@ -18,12 +18,16 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *arithmeticAnswersCollectionView;
 @property (weak, nonatomic) IBOutlet UIButton *skipRoundButton;
 @property (weak, nonatomic) IBOutlet UILabel *gameplayStatusLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeRemainingLabel;
 
 @property (nonatomic) ModeOptions *modeOptions;
 @property (nonatomic) NSMutableArray *currentRoundScores;
 @property (nonatomic) QuestionsEngine *questionEngine;
 @property (nonatomic) TLQuestion *currentQuestion;
 @property (nonatomic) TLGameOutcomeHandler *outcomeHandler;
+
+// In seconds
+@property (nonatomic) NSInteger timeRemaining;
 
 - (void)renderScoreLabel;
 - (void)renderGameplayStatusLabelWith:(NSString *)text;
@@ -42,7 +46,18 @@ int rounds = 0;
                          action:@selector(onClickSkipRoundButton:)
                forControlEvents:UIControlEventTouchUpInside];
     
-    _outcomeHandler = [[TLGameOutcomeHandler alloc] initWithModeOptions:_modeOptions viewController:self callback:@selector(updateTimeRemaining)];
+    NumberRange nBackCategoryRange = {1, 4};
+    NumberRange gridQuestionWidthRange = {4, 6};
+    ModeOptions *modeOptions = [[ModeOptions alloc] init];
+    [modeOptions setNBackCategoryRange:nBackCategoryRange];
+    [modeOptions setGridQuestionLengthRange:gridQuestionWidthRange];
+    [modeOptions setGameplayMode:@"SURVIVAL"];
+    
+    _modeOptions = modeOptions;
+    [TLGameOptions persist:_modeOptions];
+    
+    _outcomeHandler = [[TLGameOutcomeHandler alloc] initWithModeOptions:modeOptions viewController:self callback:@selector(updateTimeRemaining)];
+    _timeRemaining = 90;
     
     [self handleRound];
     
@@ -73,6 +88,7 @@ int rounds = 0;
     rounds++;
     
     if (![_outcomeHandler canStartNBackRound]) {
+        
         // Show current round for 3 seconds and go to next round
         double delayInSeconds = 3.0;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -80,6 +96,11 @@ int rounds = 0;
             /* TODO: Fix this recursion */
             [self nextRound];
         });
+        
+    } else {
+        
+        [_outcomeHandler startGame];
+        
     }
 }
 
@@ -393,6 +414,8 @@ int rounds = 0;
         
         NSString *roundScoreString = [NSString stringWithFormat:@"Score: %ld for Arithmetic, %ld for Grid", [_currentRoundScores[0] score], [_currentRoundScores[1] score]];
         
+        // TODO: Update time remaining here
+        
         [self renderGameplayStatusLabelWith:roundScoreString];
         [self renderScoreLabel];
     }
@@ -400,7 +423,18 @@ int rounds = 0;
 }
 
 - (void) updateTimeRemaining {
-    // TODO: Fill update time remaining here
+    
+    _timeRemaining -= 1;
+    [_timeRemainingLabel setText:[NSString stringWithFormat:@"%02d:%02ld", (int)floorf(_timeRemaining/60), _timeRemaining%60]];
+    [_timeRemainingLabel setNeedsDisplay];
+    
+    if (_timeRemaining <= 0 ) {
+        
+        // TODO: Update UI for Game over here
+        [self renderGameplayStatusLabelWith:@"Time limit exceeded. Game is over!"];
+        [_outcomeHandler stopGame];
+    }
+    
 }
 
 @end

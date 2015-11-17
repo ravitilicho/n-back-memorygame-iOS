@@ -28,6 +28,7 @@
 		508805E91BF22C6A0014142D /* TLGameLevelFlowHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 508805E81BF22C6A0014142D /* TLGameLevelFlowHandler.m */; settings = {ASSET_TAGS = (); }; };
 		509EAD5A1BD12FB800611136 /* TLEventInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 509EAD591BD12FB800611136 /* TLEventInput.m */; };
 		509EAD5D1BD137D800611136 /* TLEventScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 509EAD5C1BD137D800611136 /* TLEventScore.m */; };
+		50DACA3A1BFAFCAF0028EAAB /* TLNumberRangeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 50DACA391BFAFCAF0028EAAB /* TLNumberRangeUtil.m */; settings = {ASSET_TAGS = (); }; };
 		50E7930D1BF0785C001E6FE7 /* TLRoundState.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E7930C1BF0785C001E6FE7 /* TLRoundState.m */; };
 		50E793101BF1D70F001E6FE7 /* TLGameOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E7930F1BF1D70F001E6FE7 /* TLGameOptions.m */; settings = {ASSET_TAGS = (); }; };
 		50E95B521BEDC5FB0047C9EF /* NBackList.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E95B511BEDC5FB0047C9EF /* NBackList.m */; };
@@ -97,6 +98,8 @@
 		509EAD591BD12FB800611136 /* TLEventInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLEventInput.m; sourceTree = "<group>"; };
 		509EAD5B1BD137D800611136 /* TLEventScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLEventScore.h; sourceTree = "<group>"; };
 		509EAD5C1BD137D800611136 /* TLEventScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLEventScore.m; sourceTree = "<group>"; };
+		50DACA381BFAFCAF0028EAAB /* TLNumberRangeUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLNumberRangeUtil.h; sourceTree = "<group>"; };
+		50DACA391BFAFCAF0028EAAB /* TLNumberRangeUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLNumberRangeUtil.m; sourceTree = "<group>"; };
 		50E7930B1BF0785C001E6FE7 /* TLRoundState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLRoundState.h; sourceTree = "<group>"; };
 		50E7930C1BF0785C001E6FE7 /* TLRoundState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLRoundState.m; sourceTree = "<group>"; };
 		50E7930E1BF1D70F001E6FE7 /* TLGameOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLGameOptions.h; sourceTree = "<group>"; };
@@ -155,6 +158,7 @@
 		5022AC0F1BD0FC7200047B24 /* MemoryGame */ = {
 			isa = PBXGroup;
 			children = (
+				50DACA371BFAFC960028EAAB /* utils */,
 				5022AC431BD0FCAD00047B24 /* core */,
 				5022AC131BD0FC7200047B24 /* AppDelegate.h */,
 				5022AC141BD0FC7200047B24 /* AppDelegate.m */,
@@ -253,6 +257,15 @@
 				50E7930C1BF0785C001E6FE7 /* TLRoundState.m */,
 			);
 			name = models;
+			sourceTree = "<group>";
+		};
+		50DACA371BFAFC960028EAAB /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				50DACA381BFAFCAF0028EAAB /* TLNumberRangeUtil.h */,
+				50DACA391BFAFCAF0028EAAB /* TLNumberRangeUtil.m */,
+			);
+			name = utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -395,6 +408,7 @@
 				5022AC511BD1207700047B24 /* TLGameOutcomeHandler.m in Sources */,
 				50290FE21BE9CB74004BF002 /* TLGridQuestion.m in Sources */,
 				5022AC541BD120DA00047B24 /* TLGameScoreGenerator.m in Sources */,
+				50DACA3A1BFAFCAF0028EAAB /* TLNumberRangeUtil.m in Sources */,
 				5062AF221BF9FAF3002E7D61 /* TLSurvivalModeHandler.m in Sources */,
 				5022AC4E1BD11A9400047B24 /* TLGridQuestionGenerator.m in Sources */,
 				509EAD5A1BD12FB800611136 /* TLEventInput.m in Sources */,

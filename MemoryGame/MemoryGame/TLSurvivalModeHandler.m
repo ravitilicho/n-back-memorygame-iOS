@@ -15,6 +15,9 @@
 @property (nonatomic) SEL callback;
 @property (nonatomic) BOOL isPaused;
 
+@property (nonatomic) TLGameOutcomeHandler *outcomeHandler;
+@property (nonatomic) TLGameLevelFlowHandler *gameLevelFlowHandler;
+
 @end
 
 @implementation TLSurvivalModeHandler
@@ -25,8 +28,8 @@
     
     if (self != nil) {
         
-        self.outcomeHandler = outcomeHandler;
-        self.gameLevelFlowHandler = [[TLGameLevelFlowHandler alloc] initWithOutcomeHandler:outcomeHandler];
+        _outcomeHandler = outcomeHandler;
+        _gameLevelFlowHandler = [[TLGameLevelFlowHandler alloc] initWithOutcomeHandler:outcomeHandler];
         _callback = callback;
         _target = target;
         _isPaused = YES;
@@ -42,11 +45,10 @@
     if ([self isPaused]) {
         
         [self initTimer];
+        _isPaused = NO;
+        [_timer fire];
         
     }
-    
-    _isPaused = NO;
-    [_timer fire];
     
 }
 
@@ -79,6 +81,12 @@
     
     [_timer invalidate];
     _isPaused = YES;
+    
+}
+
+- (TLGameLevelFlowHandler *)gameLevelFlowHandler {
+    
+    return _gameLevelFlowHandler;
     
 }
 

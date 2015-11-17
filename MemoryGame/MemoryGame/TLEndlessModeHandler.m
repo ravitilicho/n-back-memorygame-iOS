@@ -11,6 +11,9 @@
 
 @interface TLEndlessModeHandler ()
 
+@property (nonatomic, strong) TLGameLevelFlowHandler *gameLevelFlowHandler;
+@property (nonatomic) TLGameOutcomeHandler *outcomeHandler;
+
 @end
 
 @implementation TLEndlessModeHandler
@@ -22,6 +25,8 @@
     if (self != nil) {
         
         _outcomeHandler = outcomeHandler;
+        
+        //TODO: Flow ModeOptions from ViewController/OutcomeHandler
         _gameLevelFlowHandler = [[TLGameLevelFlowHandler alloc] initWithOutcomeHandler:outcomeHandler];
         
     }

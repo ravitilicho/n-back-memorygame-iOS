@@ -26,6 +26,12 @@ typedef NS_ENUM(NSUInteger, TLEventOutcome) {
     UNDEFINED = 10
 };
 
+typedef struct NumberRange {
+    
+    NSInteger left, right;
+    
+} NumberRange;
+
 #define UIColorFromRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
 green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \

@@ -8,11 +8,22 @@
 
 #import "TLGameLevelFlowHandler.h"
 #import "TLGameOptions.h"
+#import "ModeOptions.h"
+#import "TLNumberRangeUtil.h"
+#import "Enums.h"
 
 @interface TLGameLevelFlowHandler()
 
 @property (nonatomic) NSInteger minScoreForNextLevelEligibility;
+
 @property (nonatomic) TLGameOutcomeHandler *outcomeHandler;
+
+@property (nonatomic) ModeOptions *modeOptions;
+@property (nonatomic) NumberRange nBackCategoryRange;
+@property (nonatomic) NumberRange gridLengthRange;
+
+@property (nonatomic) NSInteger currentNBackCategory;
+@property (nonatomic) NSInteger currentGridWidth;
 
 @end
 
@@ -29,6 +40,7 @@ const NSInteger scoreOffsetWhenMovingToNextLevel = 100;
     if (self != nil) {
         
         self.outcomeHandler = outcomeHandler;
+        [self initGameOptionRanges];
 
         _minScoreForNextLevelEligibility = startingScore;
         
@@ -63,32 +75,29 @@ const NSInteger scoreOffsetWhenMovingToNextLevel = 100;
         
         TLGameOptions *gameOptions = [self gameOptions];
         
-        [gameOptions setNBackCategory:[self nextNBackCategory:gameOptions]];
-        [gameOptions setGridQuestionSize:[self nextGridQuestionSize:gameOptions]];
+        [gameOptions setNBackCategory:[self nextNBackCategory]];
+        [gameOptions setGridQuestionSize:[self nextGridQuestionSize]];
         
     }
     
 }
 
-- (NSInteger) nextNBackCategory:(TLGameOptions *)gameOptions {
+- (NSInteger) nextNBackCategory {
     
-    Point gridQuestionSize = [gameOptions gridQuestionSize];
-    NSInteger currentNBackCategory = [gameOptions nBackCategory];
-    
-    if ([[self gameOptions] isMaxNBackCategory:currentNBackCategory]) {
+    if ([TLNumberRangeUtil isMaxInRange:_currentNBackCategory range:_nBackCategoryRange]) {
         
         // User cleared all the rounds! => Nothing to do: let him continue the current round itself!!
-        return currentNBackCategory;
+        return _currentNBackCategory;
         
     } else {
         
-        if ([gameOptions isMaxGridQuestionSize:gridQuestionSize]) {
+        if ([TLNumberRangeUtil isMaxInRange:_currentGridWidth range:_gridLengthRange]) {
             
-            return currentNBackCategory + 1;
+            return ++_currentNBackCategory;
             
         } else {
             
-            return currentNBackCategory;
+            return _currentNBackCategory;
             
         }
         
@@ -96,31 +105,26 @@ const NSInteger scoreOffsetWhenMovingToNextLevel = 100;
     
 }
 
-- (Point) nextGridQuestionSize:(TLGameOptions *)gameOptions {
+- (Point) nextGridQuestionSize {
     
-    NSInteger currentNBackCategory = [gameOptions nBackCategory];
-    Point gridQuestionSize = [gameOptions gridQuestionSize];
+    Point nextGridQuestionSize;
+    NSInteger nextSize;
     
-    if ([gameOptions isMaxGridQuestionSize:gridQuestionSize]) {
+    if ([TLNumberRangeUtil isMaxInRange:_currentGridWidth range:_gridLengthRange]) {
         
-        if ([gameOptions isMaxNBackCategory:currentNBackCategory]) {
-            // User cleared all the rounds! => Nothing to do: let him continue the current round itself!!
-
-            return gridQuestionSize;
-            
-        } else {
-            
-            return [gameOptions minGridQuestionSize];
-            
-        }
+        nextSize = [TLNumberRangeUtil minItem:_gridLengthRange];
         
     } else {
         
-        Point nextGridQuestionSize = {gridQuestionSize.h + 1, gridQuestionSize.h + 1};
-        return nextGridQuestionSize;
+        nextSize = ++_currentGridWidth;
         
     }
     
+    nextGridQuestionSize.h = nextSize;
+    nextGridQuestionSize.v = nextSize;
+
+    [[self gameOptions] setGridQuestionSize:nextGridQuestionSize];
+    return nextGridQuestionSize;
     
 }
 
@@ -133,6 +137,29 @@ const NSInteger scoreOffsetWhenMovingToNextLevel = 100;
 - (NSInteger) startingScore {
     
     return 50 * [[self gameOptions] gridQuestionSize].h + (100 * ([[self gameOptions] maxNBackCategory] - [[self gameOptions] nBackCategory] + 1));
+    
+}
+
+- (ModeOptions *)modeOptions {
+    
+    return [_outcomeHandler modeOptions];
+    
+}
+
+- (void) initGameOptionRanges {
+    
+    // TODO: Validate later
+    
+    _nBackCategoryRange = [[self modeOptions] nBackCategoryRange];
+    _gridLengthRange = [[self modeOptions] gridQuestionLengthRange];
+    
+    _currentNBackCategory = _nBackCategoryRange.left;
+    [[self gameOptions] setNBackCategory:_currentNBackCategory];
+    
+    _currentGridWidth = _gridLengthRange.left;
+    Point size = {_currentGridWidth, _currentGridWidth};
+    
+    [[self gameOptions] setGridQuestionSize:size];
     
 }
 

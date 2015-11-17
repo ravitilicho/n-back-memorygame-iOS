@@ -12,12 +12,11 @@
 
 @protocol TLModeHandlerProtocol <NSObject>
 
-@property (nonatomic, strong) TLGameLevelFlowHandler *gameLevelFlowHandler;
-@property (nonatomic) TLGameOutcomeHandler *outcomeHandler;
-
 - (void) start;
 - (void) pause;
 - (void) resume;
 - (BOOL) isPaused;
+
+- (TLGameLevelFlowHandler *)gameLevelFlowHandler;
 
 @end

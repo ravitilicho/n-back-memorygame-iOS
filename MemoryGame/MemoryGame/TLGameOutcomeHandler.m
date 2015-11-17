@@ -28,7 +28,6 @@
 
 @property (nonatomic) id<TLModeHandlerProtocol> modeHandler;
 
-//@property (nonatomic) TLGameLevelFlowHandler *gameLevelFlowHandler;
 @property(nonatomic) NBackList *roundStates;
 
 - (TLEventOutcome) outcome:(TLEventInput *)input;
@@ -47,6 +46,7 @@
         _modeOptions = modeOptions;
         _viewController = viewController;
         _callback = callback;
+        _gameTotalScore = 0;
         
     }
     
@@ -60,6 +60,12 @@
         [[self roundStates] addQuestion:question];
         
     }
+    
+}
+
+- (ModeOptions *)modeOptions {
+    
+    return _modeOptions;
     
 }
 
@@ -217,13 +223,13 @@
     
     if (_modeHandler == nil) {
         
-        if ([[_modeOptions gameplayMode] isEqualToString:@"ENDLESS"]) {
-            
-            _modeHandler = [[TLEndlessModeHandler alloc] initWithOutcomeHandler:self];
-            
-        } else if ([[_modeOptions gameplayMode] isEqualToString:@"ENDLESS"]) {
+        if ([[_modeOptions gameplayMode] isEqualToString:@"SURVIVAL"]) {
             
             _modeHandler = [[TLSurvivalModeHandler alloc] initWithOutcomeHandler:self target:_viewController callback:_callback];
+            
+        } else { // Default
+            
+            _modeHandler = [[TLEndlessModeHandler alloc] initWithOutcomeHandler:self];
             
         }
         
@@ -239,5 +245,31 @@
     
 }
 
+- (void) startGame {
+    
+    [_modeHandler start];
+    
+}
+- (void) pauseGame {
+    
+    [_modeHandler pause];
+    
+}
+
+- (BOOL) isPaused {
+    
+    return [_modeHandler isPaused];
+    
+}
+- (void) stopGame {
+    
+    [self pauseGame];
+    
+}
+- (void) resumeGame {
+    
+    [_modeHandler resume];
+    
+}
 
 @end

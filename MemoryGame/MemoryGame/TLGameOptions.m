@@ -13,6 +13,7 @@
 @property (nonatomic) NSSet *gameplayModes;
 
 - (BOOL) savedOptionsExist;
++ (NSDictionary *) modes;
 
 @end
 
@@ -39,7 +40,7 @@ NSInteger MAX_NBACK_CATEGORY = 6;
     
         Point defaultGridSize = {3, 3};
         
-        [self setNBackCategory:2];
+        [self setNBackCategory:1];
         [self setGridQuestionSize:defaultGridSize];
         [self setGameplayMode:@"ENDLESS"];
         
@@ -199,6 +200,97 @@ NSInteger MAX_NBACK_CATEGORY = 6;
     
     NSString *optionsSaved = [[NSUserDefaults standardUserDefaults] objectForKey:optionsInitializationStatus];
     return [optionsSaved isEqualToString:@"YES"];
+    
+}
+
++ (void) persist:(ModeOptions *)modeOptions {
+    
+    NSMutableDictionary *modes = [[self modes] mutableCopy];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [modeOptions gameplayMode], @"gameplayMode",
+                          [self number:[modeOptions nBackCategoryRange].left], @"nBackCategoryRangeLeft",
+                          [self number:[modeOptions nBackCategoryRange].right], @"nBackCategoryRangeRight",
+                          [self number:[modeOptions gridQuestionLengthRange].left], @"gridQuestionLengthRangeLeft",
+                           [self number:[modeOptions gridQuestionLengthRange].right], @"gridQuestionLengthRangeRight",
+                              nil];
+
+    [modes setValue:dict forKey:[modeOptions gameplayMode]];
+    [self persistModes:modes];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[self number:[modeOptions nBackCategoryRange].left]
+                                              forKey:nBackCategory];
+    [[NSUserDefaults standardUserDefaults] setObject:[self number:[modeOptions gridQuestionLengthRange].left]
+                                              forKey:gridQuestionSize];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
+
++ (ModeOptions *) modeOptions:(NSString *)gameplayMode {
+    
+    NSDictionary *modes = [self modes];
+    
+    if (modes == nil) {
+        
+        return nil;
+        
+    } else {
+        
+        NSDictionary *mode = [modes objectForKey:gameplayMode];
+        
+        if (mode == nil) {
+            
+            // TODO: Return defaults
+            
+            return nil;
+            
+        } else {
+            
+            NumberRange nBackRange = {[(NSNumber *)modes[@"nBackCategoryRangeLeft"] integerValue], [(NSNumber *)modes[@"nBackCategoryRangeRight"] integerValue]};
+            NumberRange gridRange = {[(NSNumber *)modes[@"gridQuestionLengthRangeLeft"] integerValue], [(NSNumber *)modes[@"gridQuestionLengthRangeRight"] integerValue]};
+            
+            ModeOptions *modeOptions = [[ModeOptions alloc] initWithGameplayMode:mode[@"gameplayMode"]
+                                                                       gridRange:gridRange
+                                                                      nBackRange:nBackRange];
+            
+            return modeOptions;
+            
+        }
+        
+    }
+    
+}
+
++ (NSDictionary *) modes {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    NSDictionary *modes = (NSDictionary *)[defaults objectForKey:@"modes"];
+    
+    if (modes == nil) {
+        
+        modes = [NSDictionary new];
+        
+        [defaults setObject:modes forKey:@"modes"];
+        [defaults synchronize];
+        
+    }
+    
+    return modes;
+    
+}
+
++ (NSNumber *)number:(NSInteger)integer {
+    
+    return [NSNumber numberWithLong:integer];
+    
+}
+
++ (void) persistModes:(NSDictionary *)modes {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:modes forKey:@"modes"];
+    [defaults synchronize];
     
 }
 

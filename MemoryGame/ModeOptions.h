@@ -7,11 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Enums.h"
 
 @interface ModeOptions : NSObject
 
+- (instancetype) initWithGameplayMode:(NSString *)gameplayMode gridRange:(NumberRange)gridRange nBackRange:(NumberRange)nBackRange;
+
 @property (nonatomic) NSString *gameplayMode;
-@property (nonatomic) NSInteger gridQuestionLength;
-@property (nonatomic) NSInteger nBackCategory;
+@property (nonatomic) NumberRange gridQuestionLengthRange;
+@property (nonatomic) NumberRange nBackCategoryRange;
 
 @end

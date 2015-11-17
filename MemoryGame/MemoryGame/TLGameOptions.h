@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ModeOptions.h"
 #import "Enums.h"
 
 @interface TLGameOptions : NSObject
@@ -26,5 +27,8 @@
 
 - (NSString *) gameplayMode;
 - (void) setGameplayMode:(NSString *)mode;
+
++ (void) persist:(ModeOptions *)modeOptions;
++ (ModeOptions *) modeOptions:(NSString *)gameplayMode;
 
 @end

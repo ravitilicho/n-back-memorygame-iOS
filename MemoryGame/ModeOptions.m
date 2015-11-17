@@ -10,4 +10,20 @@
 
 @implementation ModeOptions
 
+- (instancetype) initWithGameplayMode:(NSString *)gameplayMode gridRange:(NumberRange)gridRange nBackRange:(NumberRange)nBackRange {
+    
+    self = [super init];
+    
+    if (self != nil) {
+        
+        _gameplayMode = gameplayMode;
+        _gridQuestionLengthRange = gridRange;
+        _nBackCategoryRange = nBackRange;
+        
+    }
+    
+    return self;
+    
+}
+
 @end
