@@ -85,7 +85,6 @@
 		50290FE01BE9CB74004BF002 /* TLGridQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLGridQuestion.h; sourceTree = "<group>"; };
 		50290FE11BE9CB74004BF002 /* TLGridQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLGridQuestion.m; sourceTree = "<group>"; };
 		5062AF1B1BF9E3CA002E7D61 /* ModeHandlerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModeHandlerProtocol.h; sourceTree = "<group>"; };
-		5062AF1C1BF9E47E002E7D61 /* CallbackProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallbackProtocol.h; sourceTree = "<group>"; };
 		5062AF1D1BF9F7A6002E7D61 /* TLEndlessModeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLEndlessModeHandler.h; sourceTree = "<group>"; };
 		5062AF1E1BF9F7A6002E7D61 /* TLEndlessModeHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLEndlessModeHandler.m; sourceTree = "<group>"; };
 		5062AF201BF9FAF3002E7D61 /* TLSurvivalModeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLSurvivalModeHandler.h; sourceTree = "<group>"; };
@@ -167,7 +166,6 @@
 				5062AF1D1BF9F7A6002E7D61 /* TLEndlessModeHandler.h */,
 				5062AF1E1BF9F7A6002E7D61 /* TLEndlessModeHandler.m */,
 				5062AF1B1BF9E3CA002E7D61 /* ModeHandlerProtocol.h */,
-				5062AF1C1BF9E47E002E7D61 /* CallbackProtocol.h */,
 				50E7930E1BF1D70F001E6FE7 /* TLGameOptions.h */,
 				50E7930F1BF1D70F001E6FE7 /* TLGameOptions.m */,
 				508805E71BF22C6A0014142D /* TLGameLevelFlowHandler.h */,

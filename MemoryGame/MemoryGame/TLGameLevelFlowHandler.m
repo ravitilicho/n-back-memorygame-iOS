@@ -73,10 +73,8 @@ const NSInteger scoreOffsetWhenMovingToNextLevel = 100;
         
         _minScoreForNextLevelEligibility += scoreOffsetWhenMovingToNextLevel;
         
-        TLGameOptions *gameOptions = [self gameOptions];
-        
-        [gameOptions setNBackCategory:[self nextNBackCategory]];
-        [gameOptions setGridQuestionSize:[self nextGridQuestionSize]];
+        [TLGameOptions setNBackCategory:[self nextNBackCategory]];
+        [TLGameOptions setGridQuestionSize:[self nextGridQuestionSize]];
         
     }
     
@@ -123,20 +121,14 @@ const NSInteger scoreOffsetWhenMovingToNextLevel = 100;
     nextGridQuestionSize.h = nextSize;
     nextGridQuestionSize.v = nextSize;
 
-    [[self gameOptions] setGridQuestionSize:nextGridQuestionSize];
+    [TLGameOptions setGridQuestionSize:nextGridQuestionSize];
     return nextGridQuestionSize;
-    
-}
-
-- (TLGameOptions *) gameOptions {
-    
-    return [[TLGameOptions alloc] initWithOptions];
     
 }
 
 - (NSInteger) startingScore {
     
-    return 50 * [[self gameOptions] gridQuestionSize].h + (100 * ([[self gameOptions] maxNBackCategory] - [[self gameOptions] nBackCategory] + 1));
+    return 50 * [TLGameOptions gridQuestionSize].h + (100 * ([TLGameOptions maxNBackCategory] - [TLGameOptions nBackCategory] + 1));
     
 }
 
@@ -154,12 +146,12 @@ const NSInteger scoreOffsetWhenMovingToNextLevel = 100;
     _gridLengthRange = [[self modeOptions] gridQuestionLengthRange];
     
     _currentNBackCategory = _nBackCategoryRange.left;
-    [[self gameOptions] setNBackCategory:_currentNBackCategory];
+    [TLGameOptions setNBackCategory:_currentNBackCategory];
     
     _currentGridWidth = _gridLengthRange.left;
     Point size = {_currentGridWidth, _currentGridWidth};
     
-    [[self gameOptions] setGridQuestionSize:size];
+    [TLGameOptions setGridQuestionSize:size];
     
 }
 

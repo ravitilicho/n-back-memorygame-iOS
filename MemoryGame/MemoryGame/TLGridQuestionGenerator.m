@@ -21,7 +21,7 @@ static NSInteger prevGridHighlighted = -1;
 
 + (TLGridQuestion *)generate {
     
-    Point gridSize = [[self gameOptions] gridQuestionSize];
+    Point gridSize = [TLGameOptions gridQuestionSize];
     
     NSInteger gridCellCount = gridSize.h * gridSize.h;
     NSInteger gridNumToHighlight = [self gridNumberToHighlight:gridCellCount];
@@ -41,10 +41,6 @@ static NSInteger prevGridHighlighted = -1;
 
 + (NSInteger)gridNumberToHighlight:(NSInteger)gridCellCount {
     return arc4random() % (gridCellCount);
-}
-
-+ (TLGameOptions *) gameOptions {
-    return [[TLGameOptions alloc] initWithOptions];
 }
 
 @end

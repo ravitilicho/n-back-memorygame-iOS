@@ -49,7 +49,7 @@ int rounds = 0;
                forControlEvents:UIControlEventTouchUpInside];
     
     NumberRange nBackCategoryRange = {1, 4};
-    NumberRange gridQuestionWidthRange = {4, 6};
+    NumberRange gridQuestionWidthRange = {3, 5};
     ModeOptions *modeOptions = [[ModeOptions alloc] init];
     [modeOptions setNBackCategoryRange:nBackCategoryRange];
     [modeOptions setGridQuestionLengthRange:gridQuestionWidthRange];
@@ -75,7 +75,7 @@ int rounds = 0;
         
         [self renderGameplayStatusLabelWith:@"Remember highlighted grid position and arithmetic question..."];
         
-    } else if (rounds == [[self gameOptions] nBackCategory]) {
+    } else if (rounds == [TLGameOptions nBackCategory]) {
         
         [self renderGameplayStatusLabelWith:@"Tap on the previous rounds' highlighted grid and arithmetic question answer"];
         
@@ -101,7 +101,7 @@ int rounds = 0;
             [self nextRound];
         });
         
-    } else if (rounds == [[self gameOptions] nBackCategory] + 1){
+    } else if (rounds == [TLGameOptions nBackCategory] + 1){
         
         [_outcomeHandler startGame];
         
@@ -147,7 +147,7 @@ int rounds = 0;
     
     if (collectionView == _gridQuestionCollectionView) {
         
-        Point gridSizeFromOptions = [[self gameOptions] gridQuestionSize];
+        Point gridSizeFromOptions = [TLGameOptions gridQuestionSize];
         return gridSizeFromOptions.h * gridSizeFromOptions.v;
         
     } else if (collectionView == _arithmeticAnswersCollectionView) {
@@ -278,7 +278,7 @@ int rounds = 0;
 // 1
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    Point gridSizeFromOptions = [[self gameOptions] gridQuestionSize];
+    Point gridSizeFromOptions = [TLGameOptions gridQuestionSize];
     NSInteger itemsPerRow = gridSizeFromOptions.h;
     CGFloat pagewidth = CGRectGetWidth(collectionView.bounds);
     
@@ -308,17 +308,25 @@ int rounds = 0;
 
 - (void)onClickSkipRoundButton:(UIButton *)sender {
     
-    [_skipRoundButton setEnabled:NO];
-    
-    TLEventScore *eventScore = [_outcomeHandler getRoundScore:[TLEventInput forSkipInputEvent:0 question:_currentQuestion]];
-    NSString *roundSkipString = [NSString stringWithFormat:@"Round skipped. Score down by %ld", labs([eventScore score])];
-    
-    // Update Score label
-    [self renderGameplayStatusLabelWith:roundSkipString];
-    [self updateTimeRemaining:[eventScore timeRemainingOffset]];
-    [self renderScoreLabel];
-    
-    [self nextRound];
+    if (![_outcomeHandler isPaused] && ![self isGameOver]) {
+        
+        [_skipRoundButton setEnabled:NO];
+        
+        TLEventScore *eventScore = [_outcomeHandler getRoundScore:[TLEventInput forSkipInputEvent:0 question:_currentQuestion]];
+        NSString *roundSkipString = [NSString stringWithFormat:@"Round skipped. Score down by %ld", labs([eventScore score])];
+        
+        // Update Score label
+        [self renderGameplayStatusLabelWith:roundSkipString];
+        [self updateTimeRemaining:[eventScore timeRemainingOffset]];
+        [self renderScoreLabel];
+        
+        [self nextRound];
+        
+    } else {
+        
+        [_skipRoundButton setEnabled:NO];
+        
+    }
 
 }
 
@@ -330,12 +338,6 @@ int rounds = 0;
     
 }
 
-- (TLGameOptions *) gameOptions {
-    
-    return [[TLGameOptions alloc] initWithOptions];
-    
-}
-
 - (void) handleGameLevel {
     
     if ([_outcomeHandler isEligibleForNextLevel]) {
@@ -344,7 +346,7 @@ int rounds = 0;
         
         // TODO: This shouldn't decrease the time remaining
         [self updateTimeRemainingLabel];
-        NSLog([NSString stringWithFormat:@"Game is paused. Time remaining: %ld", _timeRemaining]);
+//        NSLog([NSString stringWithFormat:@"Game is paused. Time remaining: %ld", _timeRemaining]);
         
         // Show popup for user's choice
         [self goToNextLevel];
@@ -359,8 +361,8 @@ int rounds = 0;
     [_outcomeHandler goToNextLevel];
     
     [_gameplayStatusLabel setText:[NSString stringWithFormat:@"You're going to play %ld-back on %@ grid now!",
-                                   (long)[[self gameOptions] nBackCategory],
-                                   [NSString stringWithFormat:@"%dX%d", [[self gameOptions] gridQuestionSize].h, [[self gameOptions] gridQuestionSize].h ]]];
+                                   (long)[TLGameOptions nBackCategory],
+                                   [NSString stringWithFormat:@"%dX%d", [TLGameOptions gridQuestionSize].h, [TLGameOptions gridQuestionSize].h ]]];
     rounds = 0;
     
 }
@@ -369,7 +371,7 @@ int rounds = 0;
 
     rounds = 0;
     
-    [self renderGameplayStatusLabelWith:[NSString stringWithFormat:@"Note that you'll need to start memorizing the coming %ld rounds and start answering after that", [[self gameOptions] nBackCategory]]];
+    [self renderGameplayStatusLabelWith:[NSString stringWithFormat:@"Note that you'll need to start memorizing the coming %ld rounds and start answering after that", [TLGameOptions nBackCategory]]];
     
     [_outcomeHandler continueCurrentLevel];
     
@@ -470,7 +472,7 @@ int rounds = 0;
         [_timeRemainingLabel setText:timeRemainingString];
         [_timeRemainingLabel setNeedsDisplay];
         
-        NSLog([NSString stringWithFormat:@"Label Time remaining is updated to %@", timeRemainingString ]);
+//        NSLog([NSString stringWithFormat:@"Label Time remaining is updated to %@", timeRemainingString ]);
         
         _timeRemaining -= 1;
         
@@ -478,6 +480,7 @@ int rounds = 0;
             
             // TODO: Update UI for Game over here
             [self renderGameplayStatusLabelWith:@"Time limit exceeded. Game is over!"];
+            [_timeRemainingLabel setText:@"00:00"];
             [_outcomeHandler stopGame];
         }
         
@@ -492,7 +495,7 @@ int rounds = 0;
         if (_timeRemaining + timeRemainingOffset <= SurvivalModeMaxTimeRemaining) {
             
             _timeRemaining += timeRemainingOffset;
-            NSLog([NSString stringWithFormat:@"Time remaining updated to: %ld", _timeRemaining] );
+//            NSLog([NSString stringWithFormat:@"Time remaining updated to: %ld", _timeRemaining] );
             
         } else {
             

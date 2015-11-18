@@ -10,8 +10,6 @@
 
 @interface TLGameOptions ()
 
-@property (nonatomic) NSSet *gameplayModes;
-
 - (BOOL) savedOptionsExist;
 + (NSDictionary *) modes;
 
@@ -40,9 +38,9 @@ NSInteger MAX_NBACK_CATEGORY = 6;
     
         Point defaultGridSize = {3, 3};
         
-        [self setNBackCategory:1];
-        [self setGridQuestionSize:defaultGridSize];
-        [self setGameplayMode:@"ENDLESS"];
+        [TLGameOptions setNBackCategory:1];
+        [TLGameOptions setGridQuestionSize:defaultGridSize];
+        [TLGameOptions setGameplayMode:@"ENDLESS"];
         
         [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:optionsInitializationStatus];
         
@@ -51,32 +49,46 @@ NSInteger MAX_NBACK_CATEGORY = 6;
     return self;
 }
 
-- (NSInteger) nBackCategory {
++ (NumberRange) supportedNBackCategoryRange {
+    
+    NumberRange range = {MIN_NBACK_CATEGORY, MAX_NBACK_CATEGORY};
+    return range;
+    
+}
+
++ (NumberRange) supportedGridQuestionSizeRange {
+    
+    NumberRange range = {MIN_GRID_LENGTH, MAX_GRID_LENGTH};
+    return range;
+    
+}
+
++ (NSInteger) nBackCategory {
     
     NSInteger category = [[[self options] objectForKey:nBackCategory] integerValue];
     return category;
     
 }
 
-- (NSInteger) minNBackCategory {
++ (NSInteger) minNBackCategory {
     
     return MIN_NBACK_CATEGORY;
     
 }
 
-- (NSInteger) maxNBackCategory  {
++ (NSInteger) maxNBackCategory  {
     
     return MAX_NBACK_CATEGORY;
     
 }
 
-- (BOOL) isMaxNBackCategory:(NSInteger)category {
++ (BOOL) isMaxNBackCategory:(NSInteger)category {
     
     return category >= MAX_NBACK_CATEGORY;
     
 }
 
-- (BOOL) isMaxGridQuestionSize:(Point)size {
++ (BOOL) isMaxGridQuestionSize:(Point)size {
     
     if (size.h == size.v) {
         
@@ -88,7 +100,7 @@ NSInteger MAX_NBACK_CATEGORY = 6;
     
 }
 
-- (Point) minGridQuestionSize {
++ (Point) minGridQuestionSize {
     
     Point point = {MIN_GRID_LENGTH, MIN_GRID_LENGTH};
     
@@ -96,19 +108,19 @@ NSInteger MAX_NBACK_CATEGORY = 6;
     
 }
 
-- (NSUserDefaults *) options {
++ (NSUserDefaults *) options {
     
     return [NSUserDefaults standardUserDefaults];
     
 }
 
-- (void) persist {
++ (void) persist {
     
     [[self options] synchronize];
     
 }
 
-- (void) setNBackCategory:(NSInteger)category {
++ (void) setNBackCategory:(NSInteger)category {
     
     NSInteger nbackCategory = 0;
     
@@ -130,7 +142,7 @@ NSInteger MAX_NBACK_CATEGORY = 6;
     [self persist];
 }
 
-- (Point) gridQuestionSize {
++ (Point) gridQuestionSize {
     
     NSInteger gridLength = [[[self options] objectForKey:gridQuestionSize] integerValue];
     
@@ -140,7 +152,7 @@ NSInteger MAX_NBACK_CATEGORY = 6;
     
 }
 
-- (void) setGridQuestionSize:(Point)size {
++ (void) setGridQuestionSize:(Point)size {
     
     NSInteger gridLength = 0;
     
@@ -167,18 +179,13 @@ NSInteger MAX_NBACK_CATEGORY = 6;
     
 }
 
-- (NSSet *)gameplayModes {
++ (NSSet *)gameplayModes {
     
-    if (_gameplayModes == nil) {
-        
-        _gameplayModes = [NSSet setWithObjects:@"ENDLESS", @"SURVIVAL", nil];
-        
-    }
+    return [NSSet setWithObjects:@"ENDLESS", @"SURVIVAL", nil];
     
-    return _gameplayModes;
 }
 
-- (NSString *) gameplayMode {
++ (NSString *) gameplayMode {
     
     NSString *mode = [[self options] objectForKey:gameplayMode];
     
@@ -186,7 +193,7 @@ NSInteger MAX_NBACK_CATEGORY = 6;
 
 }
 
-- (void) setGameplayMode:(NSString *)mode {
++ (void) setGameplayMode:(NSString *)mode {
     
     if ([[self gameplayModes] containsObject:mode]) {
         
@@ -196,7 +203,7 @@ NSInteger MAX_NBACK_CATEGORY = 6;
     }
 }
 
-- (BOOL) savedOptionsExist {
++ (BOOL) savedOptionsExist {
     
     NSString *optionsSaved = [[NSUserDefaults standardUserDefaults] objectForKey:optionsInitializationStatus];
     return [optionsSaved isEqualToString:@"YES"];
@@ -217,11 +224,12 @@ NSInteger MAX_NBACK_CATEGORY = 6;
     [modes setValue:dict forKey:[modeOptions gameplayMode]];
     [self persistModes:modes];
     
-    [[NSUserDefaults standardUserDefaults] setObject:[self number:[modeOptions nBackCategoryRange].left]
+    [[self options] setObject:[modeOptions gameplayMode] forKey:gameplayMode];
+    [[self options] setObject:[self number:[modeOptions nBackCategoryRange].left]
                                               forKey:nBackCategory];
-    [[NSUserDefaults standardUserDefaults] setObject:[self number:[modeOptions gridQuestionLengthRange].left]
+    [[self options] setObject:[self number:[modeOptions gridQuestionLengthRange].left]
                                               forKey:gridQuestionSize];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[self options] synchronize];
     
 }
 

@@ -136,7 +136,7 @@
 
 - (NSInteger) nBackCategory {
     
-    return [[[TLGameOptions alloc] initWithOptions] nBackCategory];
+    return [TLGameOptions nBackCategory];
     
 }
 
